@@ -1,0 +1,89 @@
+.activity-title {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.activity-content {
+  font-size: 12px;
+}
+
+.friend-picture {
+  display: inline-block;
+  vertical-align: middle;
+  background: #ddd;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.friend-name {
+  display: inline-block;
+}
+
+.leader-picture {
+  display: inline-block;
+  background: #ddd;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.leader-rank {
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.leader-details {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.gold-icon {
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: gold;
+  display: inline-block;
+}
+
+.activity-container {
+  padding: 10px;
+}
+
+.friend-container {
+  padding: 10px;
+}
+
+.grey-border-bottom {
+  border-bottom: 1px solid #ddd;
+}
+
+.village-placeholder {
+  height: 50px;
+  background-color: #ddd;
+}
+
+.quest-container {
+  padding: 10px;
+}
+
+.quest-picture-placeholder {
+  background-color: #ddd;
+  height: 100px;
+  width: 100px;
+}
+
+.quest-left {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.quest-right {
+  display: inline-block;
+  width: 80%;
+}
