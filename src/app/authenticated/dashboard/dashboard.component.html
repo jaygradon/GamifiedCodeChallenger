@@ -1,0 +1,56 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-7 col-sm-offset-1">
+      <div class="panel panel-default">
+        <div class="village-placeholder">Village</div>
+        <div class="panel-heading">Quest</div>
+        <div class="quest-container">
+          <div class="quest-left">
+            <div class="">Defeat the lions!</div>
+            <div class="quest-picture-placeholder"></div>
+          </div>
+          <div class="quest-right">
+            The lions have escaped from the gleyd and are wreaking havoc in your settlement! Defeat them by fortifying your defenses.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Friends
+        </div>
+        <div *ngFor="let friend of friends; let idx = index;">
+          <div class="friend-container" [ngClass]="{'grey-border-bottom': idx !== (friends.length-1)}">
+            <div class="friend-picture"></div>
+            <div class="friend-name">{{friend.name}}</div>
+          </div>
+        </div>
+        <div class="panel-heading">
+          Activity
+        </div>
+        <div *ngFor="let activity of activities; let idx = index;">
+          <div class="activity-container" [ngClass]="{'grey-border-bottom': idx !== (activities.length-1)}">
+            <div class="activity-title">{{activity.title}}</div>
+            <div class="activity-content">{{activity.content}}</div>
+          </div>
+        </div>
+        <div class="panel-heading">
+          Weekly Leaders
+        </div>
+        <div *ngFor="let leader of weeklyLeaders; let idx = index;">
+          <div class="friend-container" [ngClass]="{'grey-border-bottom': idx !== (weeklyLeaders.length-1)}">
+            <div class="leader-rank">{{idx+1}}</div>
+            <div class="leader-picture"></div>
+            <div class="leader-details">
+              <div>{{leader.name}}</div>
+              <div class="inline">{{leader.gold}}
+                <div class="gold-icon"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
