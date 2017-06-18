@@ -1,0 +1,18 @@
+.bg-banner {
+  background-color: #a894bf;
+  width: 100vw;
+}
+
+.sign-up-container {
+  margin: 0 auto;
+  width: 20em;
+  padding-top: 2em;
+  padding-bottom: 4em;
+}
+
+.sign-up-message {
+  text-align: center;
+  padding-top: 1em;
+  color: white;
+  font-size: xx-large;
+}
