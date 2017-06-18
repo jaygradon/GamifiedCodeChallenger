@@ -1,7 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
+body {
+  background-color: #cccccc;
+}
 
 #cg-navbar.black-navbar {
   background-color: #4b4b4b;
   color: whitesmoke;
 }
+
+
