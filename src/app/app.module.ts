@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import {HttpModule, JsonpModule} from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -14,7 +14,10 @@ import {SignUpFormComponent} from './landing-page/sign-up-form/sign-up-form.comp
 import {RouterModule} from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {LoginFormComponent} from './login/login-form/login-form.component';
-import {SidebarComponent} from "./authenticated/dashboard/sidebar/sidebar.component";
+import {SidebarComponent} from './authenticated/dashboard/sidebar/sidebar.component';
+import {ChallengesComponent} from './authenticated/challenges/challenges.component';
+import {ChallengeComponent} from './authenticated/challenges/challenge/challenge.component';
+import {ChallengeService} from "./authenticated/challenges/challenge/challenge.service";
 
 @NgModule({
   declarations: [
@@ -26,13 +29,16 @@ import {SidebarComponent} from "./authenticated/dashboard/sidebar/sidebar.compon
     SignUpFormComponent,
     LoginComponent,
     LoginFormComponent,
-    SidebarComponent
+    SidebarComponent,
+    ChallengesComponent,
+    ChallengeComponent
   ],
   imports: [
     NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpModule,
+    JsonpModule,
     RouterModule.forRoot([
       {
         path: '',
@@ -49,10 +55,18 @@ import {SidebarComponent} from "./authenticated/dashboard/sidebar/sidebar.compon
       {
         path: 'login',
         component: LoginComponent
+      },
+      {
+        path: 'challenges',
+        component: ChallengesComponent
+      },
+      {
+        path: 'challenge/:id',
+        component: ChallengeComponent
       }
     ], {useHash: true})
   ],
-  providers: [],
+  providers: [ChallengeService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

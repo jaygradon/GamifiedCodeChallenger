@@ -13,3 +13,8 @@ body {
 .inline {
   display: inline-block;
 }
+
+.title {
+  font-size: xx-large;
+}
+
