@@ -1,16 +1,16 @@
 <form>
   <div class="form-group">
-    <label for="inputEmail">Email address</label>
-    <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+    <label for="inputEmail" class="sign-up-label">Email address</label>
+    <input required type="email" class="form-control" id="inputEmail" name="signupEmail" aria-describedby="emailHelp" placeholder="Enter email" [(ngModel)]="signupEmail">
   </div>
   <div class="form-group">
-    <label for="inputPassword">Password</label>
-    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+    <label for="inputPassword" class="sign-up-label">Password</label>
+    <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="signupPassword" [(ngModel)]="signupPassword">
   </div>
   <div class="form-group">
-    <label for="inputConfirmPassword">Confirm Password</label>
-    <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Password">
+    <label for="inputConfirmPassword" class="sign-up-label">Confirm Password</label>
+    <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password" name="signupConfirmPassword" [(ngModel)]="signupConfirmPassword">
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button class="btn btn-primary" (onClick)="submitSignUpForm()">Submit</button>
 </form>
 

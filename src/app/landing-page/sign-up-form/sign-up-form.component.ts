@@ -7,4 +7,19 @@ import {Component} from '@angular/core';
 })
 export class SignUpFormComponent {
 
+  signupEmail = '';
+  signupPassword = '';
+  signupConfirmPassword = ''
+
+  submitSignUpForm() {
+    console.log('Submitting');
+  }
+
+  checkConfirmPassword() {
+    if (this.signupPassword !== this.signupConfirmPassword) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
