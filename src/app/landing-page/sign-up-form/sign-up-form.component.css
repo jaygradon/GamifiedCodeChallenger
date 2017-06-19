@@ -3,3 +3,7 @@
   color: white;
   font-family: 'Roboto', sans-serif;
 }
+
+.form-validation-error {
+  color: #d10000;
+}

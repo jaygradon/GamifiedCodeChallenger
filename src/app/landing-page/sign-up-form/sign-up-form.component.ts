@@ -15,7 +15,7 @@ export class SignUpFormComponent {
     console.log('Submitting');
   }
 
-  checkConfirmPassword() {
+  isPasswordMatch() {
     if (this.signupPassword !== this.signupConfirmPassword) {
       return false;
     } else {
