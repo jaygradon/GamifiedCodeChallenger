@@ -1,1 +1,8 @@
 .idea/
+*.sln
+CodegleydAPI/.vs
+CodegleydAPI/CodegleydAPI/obj
+CodegleydAPI/CodegleydAPI/bin
+CodegleydAPI/CodegleydAPI/Properties
+*csproj
+*csproj.user
