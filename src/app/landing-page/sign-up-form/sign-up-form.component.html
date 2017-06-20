@@ -1,0 +1,25 @@
+<form>
+  <div class="form-group">
+    <label for="inputEmail" class="sign-up-label">Email address</label>
+    <input required #email="ngModel" type="email" class="form-control" id="inputEmail" name="signupEmail" aria-describedby="emailHelp" placeholder="Enter email" [(ngModel)]="signupEmail">
+    <div *ngIf="email.errors && (email.dirty || email.touched)">
+      <span class="form-validation-error" [hidden]="!email.errors.required">Email is required.</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword" class="sign-up-label">Password</label>
+    <input required minlength="8" #password="ngModel" type="password" class="form-control" id="inputPassword" placeholder="Password" name="signupPassword" [(ngModel)]="signupPassword">
+    <div *ngIf="password.errors && (password.dirty || password.touched)">
+      <span class="form-validation-error" [hidden]="!password.errors.minlength">Password must be at least 8 characters.</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputConfirmPassword" class="sign-up-label">Confirm Password</label>
+    <input required minlength="8" #confirmPassword="ngModel" type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password" name="signupConfirmPassword" [(ngModel)]="signupConfirmPassword">
+    <div *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)">
+      <span class="form-validation-error" [hidden]="!(confirmPassword.dirty || confirmPassword.touched) || isPasswordMatch()">Passwords do not match.</span>
+    </div>
+  </div>
+  <button class="btn btn-primary" (onClick)="submitSignUpForm()">Sign Up</button>
+</form>
+

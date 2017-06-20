@@ -1,0 +1,24 @@
+.village-placeholder {
+  height: 50px;
+  background-color: #ddd;
+}
+
+.quest-container {
+  padding: 10px;
+}
+
+.quest-picture-placeholder {
+  background-color: #ddd;
+  height: 100px;
+  width: 100px;
+}
+
+.quest-left {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.quest-right {
+  display: inline-block;
+  width: 80%;
+}
