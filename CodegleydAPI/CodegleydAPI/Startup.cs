@@ -33,8 +33,9 @@ namespace CodegleydAPI
      */
     public void ConfigureServices(IServiceCollection services)
         {
-            // Use local SQL CodegleydUserDb database (see appsettings.json to configure)
+            // Use local SQL databases (see appsettings.json to configure)
             services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("CodegleydUserDb")));
+            services.AddDbContext<CodeChallengeContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("CodegleydCodeChallengeDb"))); 
 
             // Using JWT authorisation identities
             services.AddIdentity<IdentityUser, IdentityRole>()
