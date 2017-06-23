@@ -17,7 +17,8 @@ import {LoginFormComponent} from './login/login-form/login-form.component';
 import {SidebarComponent} from './authenticated/dashboard/sidebar/sidebar.component';
 import {ChallengesComponent} from './authenticated/challenges/challenges.component';
 import {ChallengeComponent} from './authenticated/challenges/challenge/challenge.component';
-import {ChallengeService} from "./authenticated/challenges/challenge/challenge.service";
+import {ChallengeService} from "./services/challenge.service";
+import {AccountService} from "./services/account.service";
 
 @NgModule({
   declarations: [
@@ -66,7 +67,7 @@ import {ChallengeService} from "./authenticated/challenges/challenge/challenge.s
       }
     ], {useHash: true})
   ],
-  providers: [ChallengeService],
+  providers: [ChallengeService, AccountService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

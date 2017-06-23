@@ -3,7 +3,8 @@
  */
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ChallengeService} from './challenge.service';
+import {ChallengeService} from '../../../services/challenge.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-challenge',
@@ -14,29 +15,33 @@ import {ChallengeService} from './challenge.service';
 
 export class ChallengeComponent implements OnInit {
   challengeID: number;
-  challenge: Challenge;
-  errorMessage: string;
+  challenge: Observable<Challenge>;
 
   ngOnInit(): void {
+    this.fetchChallengeData();
   }
 
   constructor(route: ActivatedRoute, private challengeService: ChallengeService) {
     this.challengeID = route.snapshot.params['id'];
     this.challengeService = challengeService;
-    this.fetchChallengeData();
   }
 
   fetchChallengeData() {
-    this.challengeService.getChallenge(this.challengeID)
-      .subscribe(
-        challenge => this.challenge = challenge,
-        error => this.errorMessage = <any>error);
+    this.challenge = this.challengeService.getChallenge(this.challengeID);
   }
 
+  runCode() {
+    console.log('run code');
+  }
+
+  submitCode() {
+    console.log('submit code');
+  }
 }
 
 export class Challenge {
   id: number;
   title: string;
   question: string;
+  templateText: string;
 }
