@@ -5,6 +5,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ChallengeService} from '../../../services/challenge.service';
 import {Observable} from 'rxjs/Observable';
+import {Challenge} from '../../../models/Challenge';
 
 @Component({
   selector: 'app-challenge',
@@ -37,11 +38,4 @@ export class ChallengeComponent implements OnInit {
   submitCode() {
     console.log('submit code');
   }
-}
-
-export class Challenge {
-  id: number;
-  title: string;
-  question: string;
-  templateText: string;
 }

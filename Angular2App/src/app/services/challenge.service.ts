@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {Challenge} from '../authenticated/challenges/challenge/challenge.component';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
+import {Challenge} from '../models/Challenge';
 
 @Injectable()
 export class ChallengeService {
