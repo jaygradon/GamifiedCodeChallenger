@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AccountService} from '../../services/account.service';
+import {AccountTokens} from "../../models/AccountTokens";
 
 @Component({
   selector: 'app-sign-up-form',
@@ -12,13 +13,18 @@ export class SignUpFormComponent {
   signupEmail = '';
   signupPassword = '';
   signupConfirmPassword = '';
+  errorMsg: string;
+  accountTokens: AccountTokens;
 
   constructor(private accountService: AccountService) {
     this.accountService = accountService;
   }
 
   submitSignUpForm() {
-    this.accountService.createAccount(this.signupEmail, this.signupPassword).subscribe();
+    console.log('in submit sign up form');
+    this.accountService
+      .createAccount(this.signupEmail, this.signupPassword)
+      .subscribe(accountTokens => this.accountTokens, error => this.errorMsg);
   }
 
   isPasswordMatch() {
