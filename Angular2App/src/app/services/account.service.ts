@@ -16,4 +16,12 @@ export class AccountService {
       .post(route, {username, password})
       .map(response => response.json().data as AccountTokens);
   }
+
+  login(username: string, password: string): Observable<AccountTokens> {
+    const route = `httP://localhost:5000/api/account/signin`;
+    console.log('got to account service');
+    return this.http
+      .post(route, {username, password})
+      .map(response => response.json().data as AccountTokens);
+  }
 }
