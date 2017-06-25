@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {AccountService} from '../../services/account.service';
-import {AccountTokens} from '../../models/AccountTokens';
+import {CGAccount} from '../../models/Account';
 
 @Component({
   selector: 'app-login-form',
@@ -16,7 +16,7 @@ export class LoginFormComponent {
   loginPassword = '';
 
   errorMsg: string;
-  accountTokens: AccountTokens;
+  account: CGAccount;
 
   constructor(accountService: AccountService) {
     this.accountService = accountService;
@@ -26,6 +26,7 @@ export class LoginFormComponent {
   submitLoginForm() {
     this.accountService
       .login(this.loginEmail, this.loginPassword)
-      .subscribe(accountTokens => this.accountTokens = accountTokens, error => this.errorMsg = error);
+      .subscribe(accountTokens => this.account = new CGAccount(this.loginEmail, this.loginPassword, accountTokens),
+        error => this.errorMsg = error);
   }
 }

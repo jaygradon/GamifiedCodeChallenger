@@ -1,27 +1,31 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {AccountTokens} from '../models/AccountTokens';
 
 @Injectable()
 export class AccountService {
 
+  route = `httP://localhost:5000/api/account`;
+  headers: Headers;
+  options: RequestOptions;
+
   constructor(private http: Http) {
+    this.headers = new Headers({ 'Content-Type': 'application/json' });
+    this.options = new RequestOptions({ headers: this.headers });
   }
 
-  createAccount(username: string, password: string): Observable<AccountTokens> {
-    const route = `httP://localhost:5000/api/account/register`;
-    console.log('got to account service');
+  createAccount(email: string, password: string): Observable<AccountTokens> {
+    const route = this.route + '/register';
     return this.http
-      .post(route, {username, password})
+      .post(route, {email, password}, this.headers)
       .map(response => response.json().data as AccountTokens);
   }
 
-  login(username: string, password: string): Observable<AccountTokens> {
-    const route = `httP://localhost:5000/api/account/signin`;
-    console.log('got to account service');
+  login(email: string, password: string): Observable<AccountTokens> {
+    const route = this.route + '/signin';
     return this.http
-      .post(route, {username, password})
+      .post(route, JSON.stringify({email, password}), this.options)
       .map(response => response.json().data as AccountTokens);
   }
 }
