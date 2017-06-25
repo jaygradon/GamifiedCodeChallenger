@@ -39,20 +39,6 @@ namespace CodegleydAPI.Controllers
             return new ObjectResult(challenge);
         }
 
-        [HttpGet("test/{id}")]
-        public IActionResult Test(int id)
-        {
-            Random rand = new Random();
-            if (rand.Next(0, 2) == 0)
-            {
-                return Ok("{\"result\": \"pass\"}");
-            }
-            else
-            {
-                return Ok("{\"result\": \"fail\"}");
-            }
-        }
-
         [HttpPost("admin")]
         public void Post([FromBody] CodeChallenge challenge)
         {

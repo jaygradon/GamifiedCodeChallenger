@@ -33,6 +33,8 @@ namespace CodegleydAPI
      */
     public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             // Use local SQL databases (see appsettings.json to configure)
             services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("CodegleydUserDb")));
             services.AddDbContext<CodeChallengeContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("CodegleydCodeChallengeDb"))); 
@@ -61,6 +63,12 @@ namespace CodegleydAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseCors(builder =>
+                builder.AllowAnyOrigin()
+                       .AllowAnyHeader()
+                       .AllowAnyMethod()
+            );
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
