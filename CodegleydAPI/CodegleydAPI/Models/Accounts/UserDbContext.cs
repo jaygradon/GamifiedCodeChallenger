@@ -3,9 +3,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CodegleydAPI.Models
 {
-   /**
-    * Takes user information for storing in a database.
-    */
    public class UserDbContext : IdentityDbContext<IdentityUser>
    {
       public UserDbContext(DbContextOptions<UserDbContext> options)

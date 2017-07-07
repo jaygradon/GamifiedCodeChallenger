@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace CodegleydAPI.Models
 {
+    /// <summary>
+    /// The requirements for a code based challenge question.
+    /// </summary>
     public class CodeChallenge : IChallenge
     {
         public int ID { get; set; }
