@@ -7,3 +7,4 @@ CodegleydAPI/CodegleydAPI/Properties
 *csproj
 *csproj.user
 */node_modules/
+.vs/
