@@ -1,17 +1,22 @@
 <form>
   <div class="form-group">
     <label for="inputEmail" class="login-label">Email address</label>
-    <input required #email="ngModel" type="email" class="form-control" id="inputEmail" name="loginEmail" aria-describedby="emailHelp" placeholder="Enter email" [(ngModel)]="loginEmail">
+    <input required #email="ngModel" type="email" class="form-control" id="inputEmail" name="loginEmail"
+           aria-describedby="emailHelp" placeholder="Enter email" [(ngModel)]="loginEmail"
+           [attr.disabled]="isWaitingForResponse() ? true : null">
     <div *ngIf="email.errors && (email.dirty || email.touched)">
       <span class="form-validation-error" [hidden]="!(email.dirty || email.touched) || !email.errors.required">Email is required.</span>
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword" class="login-label">Password</label>
-    <input required #password="ngModel" type="password" class="form-control" id="inputPassword" placeholder="Password" name="loginPassword" [(ngModel)]="loginPassword">
+    <input required #password="ngModel" type="password" class="form-control" id="inputPassword" placeholder="Password"
+           name="loginPassword" [(ngModel)]="loginPassword" [attr.disabled]="isWaitingForResponse() ? true : null">
     <div *ngIf="password.errors && (password.dirty || password.touched)">
       <span class="form-validation-error" [hidden]="!(password.dirty || password.touched) || !password.errors.required">Passwords is required.</span>
     </div>
   </div>
-  <button class="btn btn-primary" (click)="submitLoginForm()">Login</button>
+  <button class="btn btn-primary" (click)="submitLoginForm()" [attr.disabled]="isWaitingForResponse() ? true : null">Login</button>
+  <span class="form-validation-error">{{errorMsg}}</span>
+  <div class="loader pull-right" *ngIf="isWaitingForResponse()"></div>
 </form>

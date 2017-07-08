@@ -7,4 +7,11 @@ import {Component} from '@angular/core';
 })
 export class LandingPageComponent {
 
+  isUserSignedIn() {
+    if(localStorage.getItem('currentUser') !== null) {
+      return true;
+    }
+    return false;
+  }
+
 }

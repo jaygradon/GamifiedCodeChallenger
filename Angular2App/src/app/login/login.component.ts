@@ -7,4 +7,11 @@ import {Component} from '@angular/core';
 })
 
 export class LoginComponent {
+
+  isUserSignedIn() {
+    if(localStorage.getItem('currentUser') !== null) {
+      return true;
+    }
+    return false;
+  }
 }

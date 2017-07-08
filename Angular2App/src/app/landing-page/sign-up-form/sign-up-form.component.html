@@ -1,25 +1,34 @@
 <form>
   <div class="form-group">
     <label for="inputEmail" class="sign-up-label">Email address</label>
-    <input required #email="ngModel" type="email" class="form-control" id="inputEmail" name="signupEmail" aria-describedby="emailHelp" placeholder="Enter email" [(ngModel)]="signupEmail">
+    <input required #email="ngModel" type="email" class="form-control" id="inputEmail" name="signupEmail"
+           aria-describedby="emailHelp" placeholder="Enter email" [(ngModel)]="signupEmail"
+           pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
     <div *ngIf="email.errors && (email.dirty || email.touched)">
       <span class="form-validation-error" [hidden]="!email.errors.required">Email is required.</span>
+      <span class="form-validation-error" [hidden]="!(email.dirty || email.touched) || !email.errors.pattern">Email is invalid.</span>
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword" class="sign-up-label">Password</label>
-    <input required minlength="8" #password="ngModel" type="password" class="form-control" id="inputPassword" placeholder="Password" name="signupPassword" [(ngModel)]="signupPassword">
+    <input required minlength="6" #password="ngModel" type="password" class="form-control" id="inputPassword"
+           placeholder="Password" name="signupPassword" [(ngModel)]="signupPassword" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^a-zA-Z\d\s:]).{6,}">
     <div *ngIf="password.errors && (password.dirty || password.touched)">
-      <span class="form-validation-error" [hidden]="!password.errors.minlength">Password must be at least 8 characters.</span>
+      <span class="form-validation-error"
+            [hidden]="!password.errors.minlength && !password.errors.pattern">Password must be at least 6 characters, and contain at least one uppercase letter, lowercase letter, number and symbol.</span>
     </div>
   </div>
   <div class="form-group">
     <label for="inputConfirmPassword" class="sign-up-label">Confirm Password</label>
-    <input required minlength="8" #confirmPassword="ngModel" type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password" name="signupConfirmPassword" [(ngModel)]="signupConfirmPassword">
+    <input required minlength="8" #confirmPassword="ngModel" type="password" class="form-control"
+           id="inputConfirmPassword" placeholder="Confirm Password" name="signupConfirmPassword"
+           [(ngModel)]="signupConfirmPassword">
     <div *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)">
-      <span class="form-validation-error" [hidden]="!(confirmPassword.dirty || confirmPassword.touched) || isPasswordMatch()">Passwords do not match.</span>
+      <span class="form-validation-error"
+            [hidden]="!(confirmPassword.dirty || confirmPassword.touched) || isPasswordMatch()">Passwords do not match.</span>
     </div>
   </div>
-  <button class="btn btn-primary" (click)="submitSignUpForm()">Sign Up</button>
+  <button class="btn btn-primary" (click)="submitSignUpForm()" [attr.disabled]="isWaitingForResponse() || password.errors || confirmPassword.errors || email.errors">Sign Up</button>
+  <div class="form-validation-error">{{errorMsg}}</div>
 </form>
 
