@@ -1,11 +1,11 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import {HttpModule, JsonpModule} from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {NavbarComponent} from './authenticated/navbar/navbar.component';
 import {DashboardComponent} from './authenticated/dashboard/dashboard.component';
 import {LandingPageNavbarComponent} from './landing-page/navbar/landing-page-navbar.component';
@@ -19,6 +19,8 @@ import {ChallengesComponent} from './authenticated/challenges/challenges.compone
 import {ChallengeComponent} from './authenticated/challenges/challenge/challenge.component';
 import {AccountService} from './services/account.service';
 import {ChallengeService} from './services/challenge.service';
+import {PageNotFoundComponent} from "./404notfound/pagenotfound.component";
+import {AppRoutingModule} from "./app-routing.module";
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import {ChallengeService} from './services/challenge.service';
     LoginFormComponent,
     SidebarComponent,
     ChallengesComponent,
-    ChallengeComponent
+    ChallengeComponent,
+    PageNotFoundComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -40,32 +43,7 @@ import {ChallengeService} from './services/challenge.service';
     FormsModule,
     HttpModule,
     JsonpModule,
-    RouterModule.forRoot([
-      {
-        path: '',
-        redirectTo: 'landing', pathMatch: 'full'
-      },
-      {
-        path: 'landing',
-        component: LandingPageComponent
-      },
-      {
-        path: 'dashboard',
-        component: DashboardComponent
-      },
-      {
-        path: 'login',
-        component: LoginComponent
-      },
-      {
-        path: 'challenges',
-        component: ChallengesComponent
-      },
-      {
-        path: 'challenge/:id',
-        component: ChallengeComponent
-      }
-    ], {useHash: true})
+    AppRoutingModule
   ],
   providers: [ChallengeService, AccountService],
   bootstrap: [AppComponent]

@@ -9,6 +9,7 @@ export class AccountService {
   route = `httP://localhost:5000/api/account`;
   headers: Headers;
   options: RequestOptions;
+  redirectUrl: 'dashboard';
 
   constructor(private http: Http) {
     this.headers = new Headers({ 'Content-Type': 'application/json' });
