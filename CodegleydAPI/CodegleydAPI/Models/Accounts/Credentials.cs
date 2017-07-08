@@ -2,9 +2,9 @@
 
 namespace CodegleydAPI.Models
 {
-  /**
-   * Stores user credentials.
-   */
+  /// <summary>
+  /// Stores use Credentials
+  /// </summary>
   public class Credentials
   {
     [Required]
@@ -12,7 +12,9 @@ namespace CodegleydAPI.Models
     [Display(Name = "Email")]
     public string Email { get; set; }
 
-    // Password datatype constrains 6 character minimum, with a number, uppercase, lowercase, and non-alphanumeric.
+    /// <summary>
+    /// Password datatype constrains 6 character minimum, with a number, uppercase, lowercase, and non-alphanumeric.
+    /// </summary>
     [Required]
     [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
     [DataType(DataType.Password)]

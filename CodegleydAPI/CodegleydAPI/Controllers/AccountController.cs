@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using CodegleydAPI.Models;
 using System.Linq;
@@ -16,11 +15,11 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace CodegleydAPI.Controllers
 {
+  /// <summary>
+  /// API controller for codegleyd account management.
+  /// Accounts are required for authorizing users.
+  /// </summary>
   [Route("api/[controller]")]
-  /**
-   * API controller for codegleyd account management.
-   * Accounts are required for authorizing users.
-   */
   public class AccountController : Controller
   {
     private readonly UserManager<IdentityUser> _userManager;
@@ -37,11 +36,12 @@ namespace CodegleydAPI.Controllers
       _options = optionsAccessor.Value;
     }
 
+    /// <summary>
+    /// Registers and signs in new user credentials
+    /// </summary>
+    /// <param name="Credentials"> Requires Email and Password conforming to MS guidelines </param>
+    /// <returns></returns>
     [HttpPost("register")]
-    /**
-     * Registers and signs in new user credentials
-     * Call with an password and UNIQUE email
-     */
     public async Task<IActionResult> Register([FromBody] Credentials Credentials)
     {
       if (ModelState.IsValid)
@@ -63,11 +63,12 @@ namespace CodegleydAPI.Controllers
       return Error("Unexpected error");
     }
 
+    /// <summary>
+    /// Signs in existing user credentials
+    /// </summary>
+    /// <param name="Credentials"> Requires Email and Password conforming to MS guidelines </param>
+    /// <returns></returns>
     [HttpPost("signin")]
-    /**
-     * Signs in existing user credentials
-     * Call with an email and password
-     */
     public async Task<IActionResult> Signin([FromBody] Credentials Credentials)
     {
       if (ModelState.IsValid)
@@ -87,10 +88,10 @@ namespace CodegleydAPI.Controllers
       return Error("Unexpected error");
     }
 
-    /** 
-     * Generates a user id_token
-     * Token for client use only.
-     */
+    /// <summary>
+    /// Generates a user id_token
+    /// Token for client use only.
+    /// </summary>
     private string GetIdToken(IdentityUser user)
     {
       var payload = new Dictionary<string, object>
@@ -103,10 +104,10 @@ namespace CodegleydAPI.Controllers
       return GetToken(payload);
     }
 
-    /**
-     * Generates an access_token
-     * To be used in authorized requests in the Authorization header.
-     */
+    /// <summary>
+    /// Generates an access_token
+    /// To be used in authorized requests in the Authorization header.
+    /// </summary>
     private string GetAccessToken(string Email)
     {
       var payload = new Dictionary<string, object>
@@ -115,13 +116,13 @@ namespace CodegleydAPI.Controllers
         { "email", Email }
       };
       return GetToken(payload);
-    }
+        }
 
-    /**
-     * Generates a JSON Web Token (JWT)
-     * Consists of a Header, Payload, and Signature ('.' separated).  Base64 encoded.
-     * See https://jwt.io/ for information on JWTs.
-     */
+    /// <summary>
+    /// Generates a JSON Web Token (JWT)
+    /// Consists of a Header, Payload, and Signature('.' separated).  Base64 encoded.
+    /// See https://jwt.io/ for information on JWTs.
+    /// </summary>
     private string GetToken(Dictionary<string, object> payload)
     {
       var secret = _options.SecretKey;
@@ -142,9 +143,9 @@ namespace CodegleydAPI.Controllers
       return encoder.Encode(payload, secret);
     }
 
-    /**
-     * Sends error messages as human-readable JSON
-     */
+    ///
+    /// Sends error messages as human-readable JSON
+    ///
     private JsonResult Errors(IdentityResult result)
     {
       var items = result.Errors
