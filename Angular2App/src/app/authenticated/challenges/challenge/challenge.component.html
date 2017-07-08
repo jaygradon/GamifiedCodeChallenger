@@ -5,9 +5,17 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="title">
-            {{challenge.title}}
+            {{challenge.value.title}}
           </div>
-          {{challenge.question}}
+          {{challenge.value.question}}
+          <div class="text-area-container">
+          <textarea class="form-control" rows="5">
+          </textarea>
+          </div>
+          <div class="pull-right">
+            <button class="btn btn-default" (onClick)="runCode()">Run Code</button>
+            <button class="btn btn-primary" (onClick)="submitCode()">Submit Code</button>
+          </div>
         </div>
       </div>
     </div>
