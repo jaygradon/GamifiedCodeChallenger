@@ -1,3 +1,13 @@
 .navbar-shadow {
   box-shadow: 3px 3px 20px 3px #cccccc;
 }
+
+.user-container {
+  margin-right: 20px;
+  padding: 15px;
+}
+
+.user-icon-container {
+  margin-right: 10px;
+  font-size: large;
+}

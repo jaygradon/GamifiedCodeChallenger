@@ -3,12 +3,9 @@
     <label for="inputEmail" class="login-label">Email address</label>
     <input required #email="ngModel" type="email" class="form-control" id="inputEmail" name="loginEmail"
            aria-describedby="emailHelp" placeholder="Enter email" [(ngModel)]="loginEmail"
-           [attr.disabled]="isWaitingForResponse() ? true : null"
-           pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+           [attr.disabled]="isWaitingForResponse() ? true : null">
     <div *ngIf="email.errors && (email.dirty || email.touched)">
       <span class="form-validation-error" [hidden]="!(email.dirty || email.touched) || !email.errors.required">Email is required.</span>
-      <span class="form-validation-error" [hidden]="!(email.dirty || email.touched) || !email.errors.pattern">Email is invalid.</span>
-
     </div>
   </div>
   <div class="form-group">

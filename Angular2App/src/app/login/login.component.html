@@ -1,4 +1,5 @@
-<app-lp-navbar></app-lp-navbar>
+<app-lp-navbar *ngIf="!isUserSignedIn()"></app-lp-navbar>
+<app-navbar *ngIf="isUserSignedIn()"></app-navbar>
 <div class="login-container">
   <div class="panel panel-default">
     <div class="panel-heading">
