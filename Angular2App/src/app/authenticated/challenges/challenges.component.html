@@ -8,7 +8,7 @@
           <div class="challenge-list-container">
             <div class="list-group">
               <a *ngFor="let challenge of challenges; let i = index;" [routerLink]="['/challenge', challenge.id]"
-                 class="list-group-item">{{challenge.displayName}} <span class="badge">{{challenge.difficulty}}</span></a>
+                 class="list-group-item">{{challenge.title}} <span class="badge">easy</span></a>
             </div>
           </div>
         </div>
