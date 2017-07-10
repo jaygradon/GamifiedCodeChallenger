@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Collections;
 using Microsoft.Extensions.Logging;
+using CodegleydAPI.Utility;
 
 namespace CodegleydAPI.Controllers
 {
@@ -79,25 +80,10 @@ namespace CodegleydAPI.Controllers
                 {
                     return NotFound();
                 }
-
-                ProcessStartInfo start = new ProcessStartInfo();
-                start.FileName = getPythonPath();
-                start.Arguments = getTestFile(challenge.Code, test.TestClass);
-                start.UseShellExecute = false;
-                start.CreateNoWindow = true;
-                start.RedirectStandardOutput = true;
-                start.RedirectStandardError = true;
-                using (Process process = Process.Start(start))
-                {
-                    using (StreamReader reader = process.StandardOutput)
-                    {
-                        string err = process.StandardError.ReadToEnd();
-                        this._logger.LogInformation("Running test");
-                        return Ok(getResult(err));
-
-                    }
-
-                }
+                ITestRunner runner = new PythonRunner();
+                _logger.LogInformation("Running tests...");
+                TestResult result = runner.RunTest(challenge.Code, test.TestClass);
+                return Ok(result);
             }
             this._logger.LogWarning("ChallengeID and the challenge ID do not match");
             return BadRequest();
@@ -154,69 +140,6 @@ namespace CodegleydAPI.Controllers
             }
             this._logger.LogWarning("ID and test ID do not match");
             return BadRequest();
-        }
-
-        /// <summary>
-        /// Constructs a TestResult from Python unittest console output.
-        /// </summary>
-        /// <param name="output">The output of a Python unittest.</param>
-        /// <returns>A TestResult with the outcome of the test.</returns>
-        private TestResult getResult(string output)
-        {
-            string[] splitOutput = output.Split('\n');
-            string result;
-            if (splitOutput[splitOutput.Length - 2].StartsWith("OK"))
-            {
-                result = "PASS";
-            }
-            else
-            {
-                result = "FAIL";
-            }
-
-            return new TestResult(result);
-        }
-
-        /// <summary>
-        /// Gets the filepath of the system python executable.
-        /// </summary>
-        /// <returns>The filepath of the system python executable.</returns>
-        private string getPythonPath()
-        {
-            IDictionary environmentVariables = Environment.GetEnvironmentVariables();
-            string pathVariable = environmentVariables["Path"] as string;
-            if (pathVariable != null)
-            {
-                string[] allPaths = pathVariable.Split(';');
-                foreach (var path in allPaths)
-                {
-                    string pythonPathFromEnv = path + "\\python.exe";
-                    if (System.IO.File.Exists(pythonPathFromEnv))
-                    {
-                        return pythonPathFromEnv;
-                    }
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Constructs a temporary test file with the passed code and test code.
-        /// </summary>
-        /// <param name="code">The code to be tested.</param>
-        /// <param name="test">The python unittest code.</param>
-        /// <returns>The filepath of the new test file.</returns>
-        private string getTestFile(string code, string test)
-        {
-            string testFile = Path.GetTempPath() + "test.py";
-            using (FileStream fileStream = new FileStream(testFile, FileMode.OpenOrCreate))
-            {
-                using (StreamWriter sw = new StreamWriter(fileStream))
-                {
-                    sw.Write(code + "\n\n" + test);
-                }
-            }
-            return testFile;
         }
     }
 }
