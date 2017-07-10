@@ -4,13 +4,17 @@
     <div class="col-sm-10 col-sm-offset-1">
       <div class="panel panel-default">
         <div class="panel-body">
-          <div class="title">Challenges</div>
-          <div class="challenge-list-container">
-            <div class="list-group">
-              <a *ngFor="let challenge of challenges; let i = index;" [routerLink]="['/challenge', challenge.id]"
-                 class="list-group-item">{{challenge.title}} <span class="badge">easy</span></a>
+          <!--Should probably refactor the list into a separate component if it gets moer complex-->
+          <div *ngIf="!displayCertainChallenge">
+            <div class="title">Challenges</div>
+            <div class="challenge-list-container">
+              <div class="list-group">
+                <a *ngFor="let challenge of challenges; let i = index;"
+                   class="list-group-item" (click)="displayChallenge(challenge)">{{challenge.title}} <span class="badge">{{challenge.difficulty}}</span></a>
+              </div>
             </div>
           </div>
+          <app-challenge *ngIf="displayCertainChallenge" [challenge]="displayedChallenge" (onGoBack)="showChallengesList()"></app-challenge>
         </div>
       </div>
     </div>

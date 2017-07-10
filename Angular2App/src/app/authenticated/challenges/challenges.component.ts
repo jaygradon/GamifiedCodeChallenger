@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {ChallengeService} from '../../services/challenge.service';
-import {Challenge} from "../../models/Challenge";
+import {Challenge} from '../../models/Challenge';
 
 @Component({
   selector: 'app-challenges',
@@ -13,6 +13,9 @@ export class ChallengesComponent {
 
   challengeService: ChallengeService;
   challenges: Array<Challenge>;
+  displayCertainChallenge = false;
+  displayedChallenge: Challenge;
+
   constructor(challengeService: ChallengeService) {
     this.challengeService = challengeService;
     this.getChallenges();
@@ -20,6 +23,15 @@ export class ChallengesComponent {
 
   private getChallenges() {
     this.challengeService.getChallenges().subscribe(res => this.challenges = res);
+  }
+
+  displayChallenge(challenge: Challenge) {
+    this.displayCertainChallenge = true;
+    this.displayedChallenge = challenge;
+  }
+
+  showChallengesList() {
+    this.displayCertainChallenge = false;
   }
 }
 

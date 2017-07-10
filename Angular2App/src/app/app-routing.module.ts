@@ -3,7 +3,6 @@ import {LandingPageComponent} from './landing-page/landing-page.component';
 import {DashboardComponent} from './authenticated/dashboard/dashboard.component';
 import {LoginComponent} from './login/login.component';
 import {ChallengesComponent} from './authenticated/challenges/challenges.component';
-import {ChallengeComponent} from './authenticated/challenges/challenge/challenge.component';
 import {PageNotFoundComponent} from './404notfound/pagenotfound.component';
 import {NgModule} from '@angular/core';
 
@@ -27,10 +26,6 @@ const appRoutes: Routes = [
   {
     path: 'challenges',
     component: ChallengesComponent
-  },
-  {
-    path: 'challenge/:id',
-    component: ChallengeComponent
   },
   {
     path: 'pagenotfound',

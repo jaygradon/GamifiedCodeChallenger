@@ -29,8 +29,8 @@ export class SignUpFormComponent {
       .createAccount(this.signupEmail, this.signupPassword)
       .subscribe(
         accountTokens => {
-          localStorage.setItem('currentUser', JSON.stringify(new CGAccount(this.signupEmail, this.signupPassword, accountTokens)));
           this.isSigningUp = false;
+          localStorage.setItem('currentUser', JSON.stringify(new CGAccount(this.signupEmail, this.signupPassword, accountTokens)));
           this.router.navigate(['dashboard'], {replaceUrl: true});
         },
         error => {
@@ -52,6 +52,14 @@ export class SignUpFormComponent {
       return true;
     }
     return false;
+  }
+
+  private getErrorMessage(error) {
+    if (error.status === 400 || error.status === 401) {
+      this.errorMsg = 'Invalid username or password.';
+    } else {
+      this.errorMsg = 'An unexpected error occurred.';
+    }
   }
 
 }

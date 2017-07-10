@@ -3,4 +3,6 @@ export class Challenge {
   title: string;
   description: string;
   code: string;
+  difficulty: string;
+  category: string;
 }

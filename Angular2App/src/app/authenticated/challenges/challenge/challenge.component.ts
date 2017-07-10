@@ -1,10 +1,8 @@
 /**
  * Created by helen on 19/06/2017.
  */
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ChallengeService} from '../../../services/challenge.service';
-import {Observable} from 'rxjs/Observable';
 import {Challenge} from '../../../models/Challenge';
 
 @Component({
@@ -14,21 +12,15 @@ import {Challenge} from '../../../models/Challenge';
   providers: [ChallengeService]
 })
 
-export class ChallengeComponent implements OnInit {
-  challengeID: number;
-  challenge: Observable<Challenge>;
+export class ChallengeComponent {
 
-  ngOnInit(): void {
-    this.fetchChallengeData();
-  }
+  @Input() challenge: Challenge;
+  @Output() onGoBack = new EventEmitter<boolean>();
+  goBack = false;
 
-  constructor(route: ActivatedRoute, private challengeService: ChallengeService) {
-    this.challengeID = route.snapshot.params['id'];
-    this.challengeService = challengeService;
-  }
-
-  fetchChallengeData() {
-    this.challenge = this.challengeService.getChallenge(this.challengeID);
+  goBackPressed() {
+    this.onGoBack.emit(true);
+    this.goBack = true;
   }
 
   runCode() {
