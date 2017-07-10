@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AccountService} from '../../services/account.service';
 import {CGAccount} from '../../models/Account';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -18,7 +18,7 @@ export class SignUpFormComponent {
   isSigningUp = false;
   router: Router;
 
-  constructor(private accountService: AccountService, router: Router, route: ActivatedRoute) {
+  constructor(private accountService: AccountService, router: Router) {
     this.accountService = accountService;
     this.router = router;
   }
