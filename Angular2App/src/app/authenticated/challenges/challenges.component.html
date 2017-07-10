@@ -5,7 +5,7 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <!--Should probably refactor the list into a separate component if it gets moer complex-->
-          <div *ngIf="!displayCertainChallenge">
+          <div *ngIf="!displayCertainChallenge && !errorOccurred">
             <div class="title">Challenges</div>
             <div class="challenge-list-container">
               <div class="list-group">
@@ -14,7 +14,10 @@
               </div>
             </div>
           </div>
-          <app-challenge *ngIf="displayCertainChallenge" [challenge]="displayedChallenge" (onGoBack)="showChallengesList()"></app-challenge>
+          <div *ngIf="errorOccurred">
+            An error has occurred.
+          </div>
+          <app-challenge *ngIf="displayCertainChallenge && !errorOccurred" [challenge]="displayedChallenge" (onGoBack)="showChallengesList()"></app-challenge>
         </div>
       </div>
     </div>

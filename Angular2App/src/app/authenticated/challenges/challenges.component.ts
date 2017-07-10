@@ -15,6 +15,7 @@ export class ChallengesComponent {
   challenges: Array<Challenge>;
   displayCertainChallenge = false;
   displayedChallenge: Challenge;
+  errorOccurred =  false;
 
   constructor(challengeService: ChallengeService) {
     this.challengeService = challengeService;
@@ -22,7 +23,7 @@ export class ChallengesComponent {
   }
 
   private getChallenges() {
-    this.challengeService.getChallenges().subscribe(res => this.challenges = res);
+    this.challengeService.getChallenges().subscribe(res => this.challenges = res, error => this.errorOccurred = true);
   }
 
   displayChallenge(challenge: Challenge) {
