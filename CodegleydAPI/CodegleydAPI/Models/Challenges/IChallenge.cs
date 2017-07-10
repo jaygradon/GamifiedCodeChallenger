@@ -13,5 +13,7 @@ namespace CodegleydAPI.Models
         int ID { get; set; }
         string Title { get; set; }
         string Description { get; set; }
+        string Difficulty { get; set; }
+        string Category { get; set; }
     }
 }
