@@ -2,8 +2,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule, JsonpModule} from '@angular/http';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
 
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './authenticated/navbar/navbar.component';
@@ -21,6 +19,7 @@ import {ChallengeService} from './services/challenge.service';
 import {PageNotFoundComponent} from './404notfound/pagenotfound.component';
 import {AppRoutingModule} from './app-routing.module';
 import {TestingService} from './services/testing.service';
+import {CodemirrorModule} from "ng2-codemirror";
 
 @NgModule({
   declarations: [
@@ -38,12 +37,12 @@ import {TestingService} from './services/testing.service';
     PageNotFoundComponent
   ],
   imports: [
-    NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpModule,
     JsonpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CodemirrorModule
   ],
   providers: [ChallengeService, AccountService, TestingService],
   bootstrap: [AppComponent]

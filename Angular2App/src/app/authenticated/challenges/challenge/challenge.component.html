@@ -3,8 +3,8 @@
 </div>
 {{challenge.description}}
 <div class="text-area-container">
-          <textarea class="form-control" rows="5" [(ngModel)]="challenge.code">
-          </textarea>
+  <codemirror [(ngModel)]="challenge.code" [config]="{mode: {name: 'text/x-python', version: 3, singleLineStringErrors: false}, lineNumbers: true, indentUnit: 4, matchBrackets: true}">
+  </codemirror>
 </div>
 <button class="btn btn-default" (click)="goBackPressed()">Back</button>
 <div class="pull-right">
@@ -12,8 +12,8 @@
   <button class="btn btn-primary" (click)="submitCode()">Submit Code</button>
 </div>
 <div class="row" *ngIf="testResponse !== undefined">
-  <div class="col-sm-12 test-result-container">
-    <div class="panel" [ngClass]="{'panel-danger': testResponse.result === 'FAIL', 'panel-success': testResponse.result === 'PASS'}">
+  <div class="col-sm-12">
+    <div class="panel test-result-container" [ngClass]="{'panel-danger': testResponse.result === 'FAIL', 'panel-success': testResponse.result === 'PASS'}">
       <div class="panel-heading">
         {{getTestResult()}}
       </div>
