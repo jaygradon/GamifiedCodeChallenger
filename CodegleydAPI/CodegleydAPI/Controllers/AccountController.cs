@@ -60,7 +60,7 @@ namespace CodegleydAPI.Controllers
         return Errors(result);
 
       }
-      return Error("Unexpected error");
+      return Error("Invalid Model State");
     }
 
     /// <summary>
@@ -85,7 +85,7 @@ namespace CodegleydAPI.Controllers
         }
         return new JsonResult("Unable to sign in") { StatusCode = 401 };
       }
-      return Error("Unexpected error");
+      return Error("Invalid Model State");
     }
 
     /// <summary>
