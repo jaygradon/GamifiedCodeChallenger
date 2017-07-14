@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AccountService} from '../../services/account.service';
 import {CGAccount} from '../../models/Account';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -18,7 +18,7 @@ export class SignUpFormComponent {
   isSigningUp = false;
   router: Router;
 
-  constructor(private accountService: AccountService, router: Router, route: ActivatedRoute) {
+  constructor(private accountService: AccountService, router: Router) {
     this.accountService = accountService;
     this.router = router;
   }
@@ -29,8 +29,8 @@ export class SignUpFormComponent {
       .createAccount(this.signupEmail, this.signupPassword)
       .subscribe(
         accountTokens => {
-          localStorage.setItem('currentUser', JSON.stringify(new CGAccount(this.signupEmail, this.signupPassword, accountTokens)));
           this.isSigningUp = false;
+          localStorage.setItem('currentUser', JSON.stringify(new CGAccount(this.signupEmail, this.signupPassword, accountTokens)));
           this.router.navigate(['dashboard'], {replaceUrl: true});
         },
         error => {
@@ -52,6 +52,14 @@ export class SignUpFormComponent {
       return true;
     }
     return false;
+  }
+
+  private getErrorMessage(error) {
+    if (error.status === 400 || error.status === 401) {
+      this.errorMsg = 'Invalid username or password.';
+    } else {
+      this.errorMsg = 'An unexpected error occurred.';
+    }
   }
 
 }

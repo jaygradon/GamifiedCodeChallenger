@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AccountService} from '../../services/account.service';
 import {CGAccount} from '../../models/Account';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -21,10 +21,9 @@ export class LoginFormComponent {
 
   isLoggingIn = false;
 
-  constructor(accountService: AccountService, router: Router, private route: ActivatedRoute) {
+  constructor(accountService: AccountService, router: Router) {
     this.accountService = accountService;
     this.router = router;
-    this.route = route;
   }
 
 

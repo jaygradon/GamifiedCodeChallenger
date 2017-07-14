@@ -1,23 +1,14 @@
-<app-navbar></app-navbar>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-10 col-sm-offset-1">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <div class="title">
-            {{challenge.value.title}}
-          </div>
-          {{challenge.value.question}}
-          <div class="text-area-container">
-          <textarea class="form-control" rows="5">
-          </textarea>
-          </div>
-          <div class="pull-right">
-            <button class="btn btn-default" (onClick)="runCode()">Run Code</button>
-            <button class="btn btn-primary" (onClick)="submitCode()">Submit Code</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="title">
+  {{challenge.title}}
 </div>
+{{challenge.description}}
+<div class="text-area-container">
+          <textarea class="form-control" rows="5">{{challenge.code}}
+          </textarea>
+</div>
+<button class="btn btn-default" (click)="goBackPressed()">Back</button>
+<div class="pull-right">
+  <button class="btn btn-default" (onClick)="runCode()">Run Code</button>
+  <button class="btn btn-primary" (onClick)="submitCode()">Submit Code</button>
+</div>
+

@@ -15,10 +15,10 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a routerLink="/dashboard">Dashboard <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Village</a></li>
-        <li><a routerLink="/challenges">Challenges</a></li>
-        <li><a href="#">Leaderboard</a></li>
+        <li routerLinkActive="active"><a routerLink="/dashboard">Dashboard <span class="sr-only">(current)</span></a></li>
+        <li routerLinkActive="active"><a href="#">Village</a></li>
+        <li routerLinkActive="active"><a routerLink="/challenges">Challenges</a></li>
+        <li routerLinkActive="active"><a href="#">Leaderboard</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><div class="user-container"><i class="fa fa-user-circle-o user-icon-container"></i>{{getUserEmail()}}</div></li>

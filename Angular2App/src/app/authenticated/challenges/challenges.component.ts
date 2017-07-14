@@ -1,33 +1,39 @@
 import {Component} from '@angular/core';
+import {ChallengeService} from '../../services/challenge.service';
+import {Challenge} from '../../models/Challenge';
 
 @Component({
   selector: 'app-challenges',
   templateUrl: './challenges.component.html',
   styleUrls: ['./challenges.component.css'],
+  providers: [ChallengeService]
 })
 
 export class ChallengesComponent {
-  challenges: Array<ChallengeListItem> = [
-    {
-      displayName: 'Reverse the string',
-      id: 1,
-      difficulty: 'Easy'
-    },
-    {
-      displayName: 'Sort the number array',
-      id: 2,
-      difficulty: 'Easy'
-    },
-    {
-      displayName: 'Count the letters',
-      id: 3,
-      difficulty: 'Easy'
-    }
-  ];
+
+  challengeService: ChallengeService;
+  challenges: Array<Challenge>;
+  displayCertainChallenge = false;
+  displayedChallenge: Challenge;
+  errorOccurred =  false;
+
+  constructor(challengeService: ChallengeService) {
+    this.challengeService = challengeService;
+    this.getChallenges();
+  }
+
+  private getChallenges() {
+    this.challengeService.getChallenges().subscribe(res => this.challenges = res, error => this.errorOccurred = true);
+  }
+
+  displayChallenge(challenge: Challenge) {
+    this.displayCertainChallenge = true;
+    this.displayedChallenge = challenge;
+  }
+
+  showChallengesList() {
+    this.displayCertainChallenge = false;
+  }
 }
 
-export class ChallengeListItem {
-  displayName: string;
-  id: number;
-  difficulty: string;
-}
+
