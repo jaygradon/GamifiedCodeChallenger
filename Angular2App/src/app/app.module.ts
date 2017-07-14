@@ -11,7 +11,6 @@ import {DashboardComponent} from './authenticated/dashboard/dashboard.component'
 import {LandingPageNavbarComponent} from './landing-page/navbar/landing-page-navbar.component';
 import {LandingPageComponent} from './landing-page/landing-page.component';
 import {SignUpFormComponent} from './landing-page/sign-up-form/sign-up-form.component';
-import {RouterModule} from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {LoginFormComponent} from './login/login-form/login-form.component';
 import {SidebarComponent} from './authenticated/dashboard/sidebar/sidebar.component';
@@ -19,8 +18,9 @@ import {ChallengesComponent} from './authenticated/challenges/challenges.compone
 import {ChallengeComponent} from './authenticated/challenges/challenge/challenge.component';
 import {AccountService} from './services/account.service';
 import {ChallengeService} from './services/challenge.service';
-import {PageNotFoundComponent} from "./404notfound/pagenotfound.component";
-import {AppRoutingModule} from "./app-routing.module";
+import {PageNotFoundComponent} from './404notfound/pagenotfound.component';
+import {AppRoutingModule} from './app-routing.module';
+import {TestingService} from './services/testing.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ import {AppRoutingModule} from "./app-routing.module";
     JsonpModule,
     AppRoutingModule
   ],
-  providers: [ChallengeService, AccountService],
+  providers: [ChallengeService, AccountService, TestingService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
