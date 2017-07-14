@@ -21,7 +21,8 @@
       "styles": [
         "styles.css",
         "css/bootstrap.min.css",
-        "css/bootstrap-theme.min.css"
+        "css/bootstrap-theme.min.css",
+        "css/codemirror.css"
       ],
       "scripts": [
         "js/jquery-3.2.1.min.js",
