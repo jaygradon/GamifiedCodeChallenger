@@ -4,7 +4,7 @@
     <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="wwwroot\SettlementUnityFiles\bin.json" />
+    <Content Include="wwwroot\bin.json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JWT" Version="3.0.0-beta4" />
@@ -28,10 +28,10 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="wwwroot\SettlementUnityFiles\bin.asm.code.unityweb" />
-    <None Include="wwwroot\SettlementUnityFiles\bin.asm.framework.unityweb" />
-    <None Include="wwwroot\SettlementUnityFiles\bin.asm.library.unityweb" />
-    <None Include="wwwroot\SettlementUnityFiles\bin.asm.memory.unityweb" />
-    <None Include="wwwroot\SettlementUnityFiles\bin.data.unityweb" />
+    <None Include="wwwroot\bin.asm.code.unityweb" />
+    <None Include="wwwroot\bin.asm.framework.unityweb" />
+    <None Include="wwwroot\bin.asm.library.unityweb" />
+    <None Include="wwwroot\bin.asm.memory.unityweb" />
+    <None Include="wwwroot\bin.data.unityweb" />
   </ItemGroup>
 </Project>

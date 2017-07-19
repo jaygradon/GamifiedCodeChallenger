@@ -1,0 +1,10 @@
+{
+  "TOTAL_MEMORY": 268435456,
+  "dataUrl": "http://localhost5000:api/settlement/data",
+  "asmCodeUrl": "http://localhost5000:api/settlement/code",
+  "asmMemoryUrl": "http://localhost5000:api/settlement/memory",
+  "asmFrameworkUrl": "http://localhost5000:api/settlement/framework",
+  "asmLibraryUrl": "http://localhost5000:api/settlement/library",
+  "splashScreenStyle": "Dark",
+  "backgroundColor": "#231F20"
+}
