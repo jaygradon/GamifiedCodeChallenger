@@ -8,3 +8,4 @@ CodegleydAPI/CodegleydAPI/Properties
 *csproj.user
 */node_modules/
 .vs/
+*.unityweb

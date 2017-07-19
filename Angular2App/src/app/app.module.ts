@@ -19,7 +19,8 @@ import {ChallengeService} from './services/challenge.service';
 import {PageNotFoundComponent} from './404notfound/pagenotfound.component';
 import {AppRoutingModule} from './app-routing.module';
 import {TestingService} from './services/testing.service';
-import {CodemirrorModule} from "ng2-codemirror";
+import {CodemirrorModule} from 'ng2-codemirror';
+import {SettlementComponent} from './authenticated/settlement/settlement.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {CodemirrorModule} from "ng2-codemirror";
     SidebarComponent,
     ChallengesComponent,
     ChallengeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    SettlementComponent
   ],
   imports: [
     BrowserModule,

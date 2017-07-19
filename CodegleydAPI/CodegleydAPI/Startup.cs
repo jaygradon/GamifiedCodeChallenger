@@ -74,7 +74,8 @@ namespace CodegleydAPI
             loggerFactory.AddDebug();
 
             app.UseIdentity();
-            
+            app.UseStaticFiles();
+
             // Create Validation Parameters
             // secretKey contains a secret passphrase only your server knows
             var secretKey = Configuration.GetSection("JWTSettings:SecretKey").Value;
