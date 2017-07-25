@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -76,10 +77,13 @@ namespace CodegleydAPI
             loggerFactory.AddDebug();
 
             app.UseIdentity();
-            StaticFileOptions option = new StaticFileOptions();
-            FileExtensionContentTypeProvider contentTypeProvider = (FileExtensionContentTypeProvider)option.ContentTypeProvider;
-            contentTypeProvider.Mappings.Add(".unityweb", "application/octet-stream");
-            app.UseStaticFiles(option);
+
+            // Add Unity MIME type and allow serving of static files
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                ContentTypeProvider = new FileExtensionContentTypeProvider { Mappings = { new KeyValuePair<string, string>(".unityweb", "application/octet-stream") } }
+            });
+
             // Create Validation Parameters
             // secretKey contains a secret passphrase only your server knows
             var secretKey = Configuration.GetSection("JWTSettings:SecretKey").Value;

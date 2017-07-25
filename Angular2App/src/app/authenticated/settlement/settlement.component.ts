@@ -13,7 +13,7 @@ export class SettlementComponent implements OnInit {
   gameInstance;
 
   ngOnInit(): void {
-    this.gameInstance = UnityLoader.instantiate('gameContainer', 'http://localhost:5000/api/settlement', {
+    this.gameInstance = UnityLoader.instantiate('gameContainer', 'http://localhost:5000/bin.json', {
       Module: {TOTAL_MEMORY: 0x20000000}
     });
   }
