@@ -1,13 +1,9 @@
-using System;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using CodegleydAPI.Models;
-using System.Diagnostics;
-using System.IO;
-using System.Collections;
-using Microsoft.Extensions.Logging;
 using CodegleydAPI.Utility;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace CodegleydAPI.Controllers
 {
@@ -38,7 +34,7 @@ namespace CodegleydAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            ITest test = _testContext.Tests.FirstOrDefault(t => t.ID == id);
+            ITest test = _testContext.ChallengeTests.FirstOrDefault(t => t.ID == id);
             if (test == null)
             {
                 this._logger.LogWarning("Test with id {id} not found", id);
@@ -55,7 +51,7 @@ namespace CodegleydAPI.Controllers
         [HttpGet]
         public IActionResult GetByChallenge(int challengeID)
         {
-            ITest test = _testContext.Tests.FirstOrDefault(t => t.ChallengeID == challengeID);
+            ITest test = _testContext.ChallengeTests.FirstOrDefault(t => t.ChallengeID == challengeID);
             if (test == null)
             {
                 this._logger.LogWarning("Test with challengeID {id} not found", challengeID);
@@ -75,7 +71,7 @@ namespace CodegleydAPI.Controllers
         {
             if (challengeID == challenge.ID)
             {
-                Test test = _testContext.Tests.FirstOrDefault(t => challengeID == t.ChallengeID);
+                Test test = _testContext.ChallengeTests.FirstOrDefault(t => challengeID == t.ChallengeID);
                 if (test == null)
                 {
                     return NotFound();
@@ -98,12 +94,12 @@ namespace CodegleydAPI.Controllers
         public IActionResult Post([FromBody] Test test)
         {
             if (_challengeContext.CodeChallenges.Any(c => test.ChallengeID == c.ID)) {
-                if(_testContext.Tests.Any(t => test.ChallengeID == t.ChallengeID))
+                if(_testContext.ChallengeTests.Any(t => test.ChallengeID == t.ChallengeID))
                 {
                     this._logger.LogWarning("A test already exists for that challenge");
                     return BadRequest();
                 }
-                _testContext.Tests.Add(test);
+                _testContext.ChallengeTests.Add(test);
                 _testContext.SaveChanges();
                 this._logger.LogInformation("Adding test");
                 return Ok(test);
@@ -125,12 +121,12 @@ namespace CodegleydAPI.Controllers
             {
                 if (_challengeContext.CodeChallenges.Any(c => test.ChallengeID == c.ID))
                 {
-                    if (_testContext.Tests.Any(t => id == t.ChallengeID && t.ID != test.ID))
+                    if (_testContext.ChallengeTests.Any(t => id == t.ChallengeID && t.ID != test.ID))
                     {
                         this._logger.LogWarning("Another test already exists for that challenge");
                         return BadRequest();
                     }
-                    _testContext.Tests.Add(test);
+                    _testContext.ChallengeTests.Add(test);
                     _testContext.SaveChanges();
                     this._logger.LogInformation("Updating test");
                     return Ok(test);
