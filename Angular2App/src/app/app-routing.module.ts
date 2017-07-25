@@ -5,6 +5,7 @@ import {LoginComponent} from './login/login.component';
 import {ChallengesComponent} from './authenticated/challenges/challenges.component';
 import {PageNotFoundComponent} from './404notfound/pagenotfound.component';
 import {NgModule} from '@angular/core';
+import {SettlementComponent} from "./authenticated/settlement/settlement.component";
 
 const appRoutes: Routes = [
   {
@@ -26,6 +27,10 @@ const appRoutes: Routes = [
   {
     path: 'challenges',
     component: ChallengesComponent
+  },
+  {
+    path: 'settlement',
+    component: SettlementComponent
   },
   {
     path: 'pagenotfound',
