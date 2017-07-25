@@ -13,7 +13,7 @@ namespace CodegleydAPI.Models
             Database.EnsureCreated();
         }
 
-        public DbSet<Test> Tests { get; set; }
+        public DbSet<Test> ChallengeTests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
