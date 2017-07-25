@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Net;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+ using Microsoft.AspNetCore.StaticFiles;
 
 namespace CodegleydAPI
 {
@@ -75,8 +76,10 @@ namespace CodegleydAPI
             loggerFactory.AddDebug();
 
             app.UseIdentity();
-            app.UseStaticFiles();
-
+            StaticFileOptions option = new StaticFileOptions();
+            FileExtensionContentTypeProvider contentTypeProvider = (FileExtensionContentTypeProvider)option.ContentTypeProvider;
+            contentTypeProvider.Mappings.Add(".unityweb", "application/octet-stream");
+            app.UseStaticFiles(option);
             // Create Validation Parameters
             // secretKey contains a secret passphrase only your server knows
             var secretKey = Configuration.GetSection("JWTSettings:SecretKey").Value;

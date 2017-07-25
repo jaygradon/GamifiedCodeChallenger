@@ -1,10 +1,10 @@
 {
   "TOTAL_MEMORY": 268435456,
-  "dataUrl": "http://localhost5000:api/settlement/data",
-  "asmCodeUrl": "http://localhost5000:api/settlement/code",
-  "asmMemoryUrl": "http://localhost5000:api/settlement/memory",
-  "asmFrameworkUrl": "http://localhost5000:api/settlement/framework",
-  "asmLibraryUrl": "http://localhost5000:api/settlement/library",
+  "dataUrl": "http://localhost5000/bin.data.unityweb",
+  "asmCodeUrl": "http://localhost5000/bin.asm.code.unityweb",
+  "asmMemoryUrl": "http://localhost5000/bin.asm.memory.unityweb",
+  "asmFrameworkUrl": "http://localhost5000/bin.asm.framework.unityweb",
+  "asmLibraryUrl": "http://localhost5000/bin.asm.library.unityweb",
   "splashScreenStyle": "Dark",
   "backgroundColor": "#231F20"
 }
