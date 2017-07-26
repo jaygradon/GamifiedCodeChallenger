@@ -16,8 +16,15 @@ export class SettlementComponent implements OnInit {
     this.gameInstance = UnityLoader.instantiate('gameContainer', 'http://localhost:5000/bin.json', {
       Module: {TOTAL_MEMORY: 0x20000000}
     });
-    this.gameInstance.sendMessage('StartObject', 'StoreUserID', JSON.parse(localStorage.getItem('currentUser')).accountTokens.idToken);
+    this.gameInstance.SendMessage('StartObject', 'StoreUserToken', this.decodeUserToken());
   }
+
+  private decodeUserToken() {
+    const userToken = JSON.parse(localStorage.getItem('currentUser')).accountTokens.id_token;
+    const payload = userToken.split('.');
+    return JSON.parse(atob(payload[1])).id;
+  }
+
 }
 
 
