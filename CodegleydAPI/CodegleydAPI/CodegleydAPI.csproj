@@ -4,10 +4,11 @@
     <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="wwwroot\26.07.asm.code.unityweb" />
-    <Content Include="wwwroot\26.07.asm.framework.unityweb" />
+    <Content Include="wwwroot\1.0.asm.code.unityweb" />
+    <Content Include="wwwroot\1.0.asm.framework.unityweb" />
+    <Content Include="wwwroot\1.0.asm.memory.unityweb" />
+    <Content Include="wwwroot\1.0.data.unityweb" />
     <Content Include="wwwroot\26.07.asm.memory.unityweb" />
-    <Content Include="wwwroot\26.07.data.unityweb" />
     <Content Include="wwwroot\bin.json" />
   </ItemGroup>
   <ItemGroup>
