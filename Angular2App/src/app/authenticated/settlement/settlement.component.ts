@@ -1,6 +1,6 @@
 declare var UnityLoader: any;
 
-import {Component, OnInit} from '@angular/core';
+import {AfterContentInit, AfterViewChecked, Component, OnInit} from '@angular/core';
 import '../../../unity/Build/UnityLoader.js';
 
 @Component({
@@ -10,14 +10,23 @@ import '../../../unity/Build/UnityLoader.js';
 })
 
 export class SettlementComponent implements OnInit {
+
   gameInstance;
+
+  constructor() {
+    setTimeout(() => {
+        this.gameInstance.SendMessage('StartObject', 'StoreUserID', this.decodeUserToken() + '|' + this.getAuthToken());
+        console.log('Sent message to Unity');
+      }, 30000);
+  }
+
 
   ngOnInit(): void {
     this.gameInstance = UnityLoader.instantiate('gameContainer', 'http://localhost:5000/bin.json', {
       Module: {TOTAL_MEMORY: 0x20000000}
     });
-    this.gameInstance.SendMessage('StartObject', 'StoreUserID', this.decodeUserToken(), this.getAuthToken());
   }
+
 
   private decodeUserToken() {
     const userToken = JSON.parse(localStorage.getItem('currentUser')).accountTokens.id_token;
@@ -27,7 +36,6 @@ export class SettlementComponent implements OnInit {
 
   private getAuthToken() {
     return JSON.parse(localStorage.getItem('currentUser')).accountTokens.access_token;
-
   }
 }
 
