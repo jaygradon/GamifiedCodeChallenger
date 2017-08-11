@@ -4,6 +4,11 @@
     <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="wwwroot\1.0.asm.code.unityweb" />
+    <Content Include="wwwroot\1.0.asm.framework.unityweb" />
+    <Content Include="wwwroot\1.0.asm.memory.unityweb" />
+    <Content Include="wwwroot\1.0.data.unityweb" />
+    <Content Include="wwwroot\26.07.asm.memory.unityweb" />
     <Content Include="wwwroot\bin.json" />
   </ItemGroup>
   <ItemGroup>
@@ -26,12 +31,5 @@
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="wwwroot\bin.asm.code.unityweb" />
-    <None Include="wwwroot\bin.asm.framework.unityweb" />
-    <None Include="wwwroot\bin.asm.library.unityweb" />
-    <None Include="wwwroot\bin.asm.memory.unityweb" />
-    <None Include="wwwroot\bin.data.unityweb" />
   </ItemGroup>
 </Project>
