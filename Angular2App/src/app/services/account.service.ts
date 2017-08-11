@@ -2,17 +2,19 @@ import {Injectable} from '@angular/core';
 import {Http, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {AccountTokens} from '../models/AccountTokens';
+import {UserData} from '../models/UserData';
 
 @Injectable()
 export class AccountService {
 
   route = `http://localhost:5000/api/account`;
+  route_userData = `http://localhost:5000/api/userdata`;
   headers: Headers;
   options: RequestOptions;
 
   constructor(private http: Http) {
-    this.headers = new Headers({ 'Content-Type': 'application/json' });
-    this.options = new RequestOptions({ headers: this.headers });
+    this.headers = new Headers({'Content-Type': 'application/json'});
+    this.options = new RequestOptions({headers: this.headers});
   }
 
   createAccount(email: string, password: string): Observable<AccountTokens> {
@@ -27,5 +29,26 @@ export class AccountService {
     return this.http
       .post(route, JSON.stringify({email, password}), this.options)
       .map(response => response.json() as AccountTokens);
+  }
+
+  getUserData(): Observable<UserData> {
+    const route = this.route_userData + '/' + this.decodeUserToken();
+
+    const headers = new Headers({ 'Accept': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+    headers.append('Authorization', 'Bearer ' + this.getAuthToken());
+    return this.http
+      .get(route, options)
+      .map(response => response.json() as UserData);
+  }
+
+  private decodeUserToken() {
+    const userToken = JSON.parse(localStorage.getItem('currentUser')).accountTokens.id_token;
+    const payload = userToken.split('.');
+    return JSON.parse(atob(payload[1])).id;
+  }
+
+  private getAuthToken() {
+    return JSON.parse(localStorage.getItem('currentUser')).accountTokens.access_token;
   }
 }

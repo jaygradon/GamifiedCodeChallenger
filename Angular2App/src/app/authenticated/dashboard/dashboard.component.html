@@ -1,21 +1,40 @@
 <app-navbar></app-navbar>
-<div class="row">
-  <div class="col-sm-7 col-sm-offset-1">
-    <div class="panel panel-default">
-      <div class="village-placeholder">Village</div>
-      <div class="panel-heading">Quest</div>
-      <div class="quest-container">
-        <div class="quest-left">
-          <div class="">{{questHeader}}</div>
-          <div class="quest-picture-placeholder"></div>
-        </div>
-        <div class="quest-right">
-          {{questText}}
+<div class="container-fluid">
+  <div class="row">
+
+    <div style="width:900px; position:relative; margin:auto;">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-8 title title-container title-sm">
+              Welcome to Codegleyd.
+            </div>
+            <div class="col-sm-4">
+              <div class="block pull-right" *ngIf="userData">Gold: {{userData.gold}}
+                <div class="gold-icon"></div>
+              </div>
+              <br/>
+              <div class="pull-right block" *ngIf="userData">
+                Gold Spent: {{userData.goldSpent}}
+                <div class="gold-icon"></div>
+              </div>
+            </div>
+            <hr>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              Here you can practise Python coding questions to learn the basics or prepare for an interview. As you complete challenges, you'll earn gold that will upgrade your settlement. Watch your settlement grow with you as you become a better programmer!
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-sm-3">
-    <app-sidebar></app-sidebar>
+
+  <div class="row">
+    <div class="webgl-content">
+      <div id="gameContainer" style="width: 900px; height: 450px"></div>
+    </div>
   </div>
 </div>
+

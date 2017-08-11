@@ -1,6 +1,6 @@
 declare var UnityLoader: any;
 
-import {AfterContentInit, AfterViewChecked, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import '../../../unity/Build/UnityLoader.js';
 
 @Component({

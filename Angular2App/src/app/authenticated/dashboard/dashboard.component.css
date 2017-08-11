@@ -1,24 +1,15 @@
-.village-placeholder {
-  height: 50px;
-  background-color: #ddd;
-}
-
-.quest-container {
-  padding: 10px;
-}
-
-.quest-picture-placeholder {
-  background-color: #ddd;
-  height: 100px;
-  width: 100px;
-}
-
-.quest-left {
+.gold-icon {
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: gold;
   display: inline-block;
-  vertical-align: middle;
 }
 
-.quest-right {
-  display: inline-block;
-  width: 80%;
+.title-container {
+  margin-bottom: 8px;
+}
+
+.title-sm {
+  font-size: 2em;
 }
