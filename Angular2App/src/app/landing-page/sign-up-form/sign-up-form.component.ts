@@ -31,7 +31,10 @@ export class SignUpFormComponent {
         accountTokens => {
           this.isSigningUp = false;
           localStorage.setItem('currentUser', JSON.stringify(new CGAccount(this.signupEmail, this.signupPassword, accountTokens)));
-          this.router.navigate(['dashboard'], {replaceUrl: true});
+          this.accountService.postEmptyUserData().subscribe(res => {
+            console.log('empty user data posted' + res);
+            this.router.navigate(['dashboard'], {replaceUrl: true});
+          });
         },
         error => {
           this.errorMsg = error._body;

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {CGAccount} from "../../models/Account";
+import {CGAccount} from '../../models/Account';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +15,8 @@ export class NavbarComponent {
 
   logout() {
     localStorage.clear();
-    this.router.navigate(['landing'], {replaceUrl: true});
+    // The reload is needed to prevent a bug where input fields won't take input
+    this.router.navigate(['landing'], {replaceUrl: true}).then(() => location.reload());
   }
 
   getUserEmail() {
