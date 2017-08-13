@@ -1,6 +1,7 @@
 <div class="title">
   {{challenge.title}}
 </div>
+<br/>
 {{challenge.description}}
 <div class="text-area-container">
   <codemirror [(ngModel)]="challenge.code" [config]="{mode: {name: 'text/x-python', version: 3, singleLineStringErrors: false}, lineNumbers: true, indentUnit: 4, matchBrackets: true}">
