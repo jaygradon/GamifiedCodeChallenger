@@ -101,7 +101,6 @@ namespace CodegleydAPI.Controllers
             return Ok(data);
         }
 
-
         /// <summary>
         /// Updates the amount of gold (total) a user has.
         /// </summary>
@@ -123,6 +122,45 @@ namespace CodegleydAPI.Controllers
             _dataContext.SaveChanges();
 
             this._logger.LogInformation("Updating user data");
+            return Ok(data);
+        }
+
+        [HttpPut("initsim/{userID}")]
+        public IActionResult InitSim(string userID, [FromBody] UserData data)
+        {
+            if (data == null)
+            {
+                _logger.LogWarning("Data is null, provided data may be malformed");
+                return BadRequest();
+            }
+
+            if (data.UserId != userID)
+            {
+                _logger.LogWarning("Data user and user ID {id} do not match", userID);
+                return BadRequest();
+            }
+
+            UserData existingData = _dataContext.UserData.FirstOrDefault(d => d.UserId == userID);
+            if (existingData == null)
+            {
+                _logger.LogWarning("Data for user ID {id} not found, post first", userID);
+                return NotFound();
+            }
+
+            if (existingData.ID != data.ID)
+            {
+                _logger.LogWarning("Given data does not match existing data for user ID {id}", userID);
+                return BadRequest();
+            }
+
+            existingData.Gold = data.Gold;
+            existingData.GoldSpent = data.GoldSpent;
+            existingData.SimValues = data.SimValues;
+            existingData.SerializeStorage = data.SerializeStorage;
+
+            _dataContext.UserData.Update(existingData);
+            _dataContext.SaveChanges();
+            _logger.LogInformation("Updating data");
             return Ok(data);
         }
 
@@ -156,12 +194,37 @@ namespace CodegleydAPI.Controllers
 
             existingData.Gold = data.Gold;
             existingData.GoldSpent = data.GoldSpent;
-            existingData.SimValues = data.SimValues;
+            //existingData.SimValues = data.SimValues;
+            existingData.SerializeStorage = data.SerializeStorage;
 
             _dataContext.UserData.Update(existingData);
             _dataContext.SaveChanges();
             _logger.LogInformation("Updating data");
             return Ok(data);
+        }
+
+        [HttpPut("sim")]
+        public IActionResult PutSimValue([FromBody] SimulationValue simValue)
+        {
+            if (simValue == null)
+            {
+                _logger.LogWarning("simValue is null, provided simValue may be malformed");
+                return BadRequest();
+            }
+
+            SimulationValue simValue1 = _dataContext.SimulationValues.Include("Tile").FirstOrDefault(s => s.ID == simValue.ID);
+            if (simValue1 == null)
+            {
+                _logger.LogWarning("Provided ID does not match a simvalue");
+                return BadRequest();
+            }
+
+            _dataContext.Tiles.Remove(simValue1.Tile);
+            _dataContext.SimulationValues.Remove(simValue1);
+            simValue.ID = 0;
+            _dataContext.SimulationValues.Add(simValue);
+            _dataContext.SaveChanges();
+            return Ok();
         }
     }
 }
