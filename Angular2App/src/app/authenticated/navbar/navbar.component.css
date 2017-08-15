@@ -11,3 +11,8 @@
   margin-right: 10px;
   font-size: large;
 }
+
+.clickable {
+  cursor: pointer;
+  cursor: hand;
+}
