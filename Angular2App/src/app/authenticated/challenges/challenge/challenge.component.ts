@@ -22,6 +22,7 @@ export class ChallengeComponent {
   testingService: TestingService;
   accountService: AccountService;
   testResponse;
+  testPassString = 'Test successfully passed.';
 
   constructor(testingService: TestingService, accountService: AccountService) {
     this.testingService = testingService;
@@ -34,20 +35,24 @@ export class ChallengeComponent {
   }
 
   runCode() {
-    console.log(this.challenge);
+    this.testingService.testChallenge(this.challenge).subscribe(res => {
+      this.testResponse = res;
+      this.testPassString = 'Test successfully passed.';
+    });
+  }
+
+  submitCode() {
     this.testingService.testChallenge(this.challenge).subscribe(res => {
       this.testResponse = res;
       if (this.testResponse.result === 'PASS') {
         const gold = this.getGoldReward();
         if (gold > 0) {
-          this.accountService.incrementGold(gold).subscribe();
+          this.accountService.incrementGold(gold).subscribe(
+            () => this.testPassString =  'Test successfully passed. You have earned ' + this.getGoldReward() + ' gold!'
+          );
         }
       }
     });
-  }
-
-  submitCode() {
-    console.log('submit code');
   }
 
   getGoldReward() {
@@ -67,7 +72,7 @@ export class ChallengeComponent {
     if (this.testResponse.result === 'FAIL') {
       return 'Test failed.';
     } else if (this.testResponse.result === 'PASS') {
-      return 'Test successfully passed. You have earned ' + this.getGoldReward() + ' gold!';
+      return this.testPassString; ;
     } else {
       return '';
     }

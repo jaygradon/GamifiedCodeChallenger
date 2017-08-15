@@ -101,36 +101,6 @@ namespace CodegleydAPI.Controllers
             return Ok(data);
         }
 
-//        /// <summary>
-//        /// Spends unspent gold to 'upgrade' tiles.
-//        /// </summary>
-//        /// <param name="userID">The id of the owning user</param>
-//        /// <returns>Ok with updated data or NotFound</returns>
-//        [HttpPut("gold/{userID}")]
-//        public IActionResult SpendGold(string userID)
-//        {
-//            IdentityUser user = _userContext.Users.FirstOrDefault(u => u.Id == userID);
-//            if (user == null)
-//            {
-//                this._logger.LogWarning("User with user id {id} not found", userID);
-//                return NotFound();
-//            }
-//
-//            UserData data = _dataContext.UserData.FirstOrDefault(d => d.UserId == userID);
-//            if (data == null)
-//            {
-//                this._logger.LogWarning("Data with user id {id} not found", userID);
-//                return NotFound();
-//            }
-//
-//            data = this.spendGold(data);
-//
-//            _dataContext.Update(data);
-//            _dataContext.SaveChanges();
-//            this._logger.LogInformation("Creating user data");
-//
-//            return Ok(data);
-//        }
 
         /// <summary>
         /// Updates the amount of gold (total) a user has.
@@ -192,11 +162,6 @@ namespace CodegleydAPI.Controllers
             _dataContext.SaveChanges();
             _logger.LogInformation("Updating data");
             return Ok(data);
-        }
-
-        private UserData spendGold(UserData data)
-        {
-            return data;
         }
     }
 }

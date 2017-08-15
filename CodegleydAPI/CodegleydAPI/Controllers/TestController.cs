@@ -126,7 +126,10 @@ namespace CodegleydAPI.Controllers
                         this._logger.LogWarning("Another test already exists for that challenge");
                         return BadRequest();
                     }
-                    _testContext.ChallengeTests.Add(test);
+                    Test stest = _testContext.ChallengeTests.FirstOrDefault(t => t.ID == test.ID);
+                    stest.TestClass = test.TestClass;
+                    stest.ChallengeID = test.ChallengeID;
+                    _testContext.Update(stest);
                     _testContext.SaveChanges();
                     this._logger.LogInformation("Updating test");
                     return Ok(test);
