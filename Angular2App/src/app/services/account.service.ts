@@ -54,6 +54,17 @@ export class AccountService {
       .map(response => response.json() as UserData);
   }
 
+  incrementGold(gold: number) {
+    const route = this.route_userData + '/gold/' + this.decodeUserToken() + '?gold=' + gold;
+
+    const headers = new Headers({ 'Accept': 'application/json' });
+    headers.append('Authorization', 'Bearer ' + this.getAuthToken());
+    const options = new RequestOptions({ headers: headers });
+    return this.http
+      .put(route, {}, options)
+      .map(response => response.json() as UserData);
+  }
+
   private decodeUserToken() {
     const userToken = JSON.parse(localStorage.getItem('currentUser')).accountTokens.id_token;
     const payload = userToken.split('.');

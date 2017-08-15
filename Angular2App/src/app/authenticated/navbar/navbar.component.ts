@@ -23,4 +23,15 @@ export class NavbarComponent {
     const account = JSON.parse(localStorage.getItem('currentUser')) as CGAccount;
     return account.email;
   }
+
+  gotoChallenges() {
+    this.router.navigate(['challenges'], {replaceUrl: true}).then(() => location.reload());
+  }
+
+  onChallenges() {
+    if (this.router.url === '/challenges') {
+      return true;
+    }
+    return false;
+  }
 }
