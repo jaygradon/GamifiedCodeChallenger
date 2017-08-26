@@ -42,9 +42,9 @@ export class AccountService {
       .map(response => response.json() as UserData);
   }
 
-  postEmptyUserData(): Observable<UserData> {
+  postEmptyUserData(email: string): Observable<UserData> {
     // This method is needed to initialise an empty user data object for the user in the backend
-    const route = this.route_userData + '/' + this.decodeUserToken();
+    const route = this.route_userData + '/' + this.decodeUserToken() + '?displayName=' + email;
 
     const headers = new Headers({ 'Accept': 'application/json' });
     headers.append('Authorization', 'Bearer ' + this.getAuthToken());

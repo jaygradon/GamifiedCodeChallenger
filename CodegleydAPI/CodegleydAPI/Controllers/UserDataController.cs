@@ -52,6 +52,30 @@ namespace CodegleydAPI.Controllers
         }
 
         /// <summary>
+        /// Gets the data for a user, including gold and tiles.
+        /// </summary>
+        /// <param name="userID">The id of the owning user</param>
+        /// <returns>Ok with the data, or NotFound</returns>
+        [HttpGet("sim/id/{dataID}")]
+        public IActionResult GetData(int dataID)
+        {
+            UserData data = _dataContext.UserData.FirstOrDefault(d => d.ID == dataID);
+            if(dataID == 0)
+            {
+                data = _dataContext.UserData.ToArray()[_dataContext.UserData.ToArray().Length-1];
+            }
+            if (data == null)
+            {
+                data = _dataContext.UserData.ToArray()[0];
+            }
+
+            List<SimulationValue> simValues = _dataContext.SimulationValues.Include("Tile").Where(s => s.UserDataID == data.ID).ToList();
+            data.SimValues = simValues;
+
+            return Ok(data);
+        }
+
+        /// <summary>
         /// Gets the data for a user, excluding tiles.
         /// </summary>
         /// <param name="userID">The id of the owning user</param>
@@ -77,7 +101,7 @@ namespace CodegleydAPI.Controllers
         /// <param name="userID">The id of the owning user</param>
         /// <returns>Ok with new data, NotFound or BadRequest</returns>
         [HttpPost("{userID}")]
-        public IActionResult Post(string userID)
+        public IActionResult Post(string userID, string displayName)
         {
             IdentityUser user = _userContext.Users.FirstOrDefault(u => u.Id == userID);
             if (user == null)
@@ -93,7 +117,7 @@ namespace CodegleydAPI.Controllers
                 return BadRequest();
             }
 
-            data = new UserData(userID);
+            data = new UserData(userID, displayName);
             _dataContext.Add(data);
             _dataContext.SaveChanges();
             this._logger.LogInformation("Creating user data");
