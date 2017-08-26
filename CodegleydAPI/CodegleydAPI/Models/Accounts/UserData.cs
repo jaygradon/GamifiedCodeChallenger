@@ -12,6 +12,7 @@ namespace CodegleydAPI.Models
     {
         public int ID { get; set; }
         public string UserId { get; set; }
+        public string DisplayName { get; set; }
         public int Gold { get; set; }
         public int GoldSpent { get; set; }
         public string SerializeStorage { get; set; }
@@ -26,6 +27,16 @@ namespace CodegleydAPI.Models
             this.SerializeStorage = "";
             this.SimValues = new List<SimulationValue>();
             this.UserId = userId;
+        }
+
+        public UserData(string userId, string name)
+        {
+            this.Gold = 1;
+            this.GoldSpent = 0;
+            this.SerializeStorage = "";
+            this.SimValues = new List<SimulationValue>();
+            this.UserId = userId;
+            this.DisplayName = name;
         }
     }
 }
