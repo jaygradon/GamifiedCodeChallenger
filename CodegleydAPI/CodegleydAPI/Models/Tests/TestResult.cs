@@ -25,11 +25,24 @@ namespace CodegleydAPI.Models
         /// </summary>
         public int Successes { get; set; }
 
+        /// <summary>
+        /// Error message
+        /// </summary>
+        public string ResultDescription { get; set; }
+
         public TestResult(string result)
         {
             this.Result = result;
             this.Tests = -1;
             this.Successes = -1;
+        }
+
+        public TestResult(string result, string desc)
+        {
+            this.Result = result;
+            this.Tests = -1;
+            this.Successes = -1;
+            this.ResultDescription = desc;
         }
     }
 }

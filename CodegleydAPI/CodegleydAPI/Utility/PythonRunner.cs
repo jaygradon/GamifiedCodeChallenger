@@ -48,7 +48,7 @@ namespace CodegleydAPI.Utility
                 result = "FAIL";
             }
 
-            return new TestResult(result);
+            return new TestResult(result, s);
         }
 
         /// <summary>

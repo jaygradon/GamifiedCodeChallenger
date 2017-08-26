@@ -121,7 +121,7 @@ namespace CodegleydAPI.Controllers
             {
                 if (_challengeContext.CodeChallenges.Any(c => test.ChallengeID == c.ID))
                 {
-                    if (_testContext.ChallengeTests.Any(t => id == t.ChallengeID && t.ID != test.ID))
+                    if (_testContext.ChallengeTests.Any(t => test.ChallengeID == t.ChallengeID && t.ID != test.ID))
                     {
                         this._logger.LogWarning("Another test already exists for that challenge");
                         return BadRequest();
