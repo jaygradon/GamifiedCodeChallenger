@@ -70,7 +70,7 @@ export class ChallengeComponent {
 
   getTestResult() {
     if (this.testResponse.result === 'FAIL') {
-      return 'Test failed.';
+      return 'Test failed. ' + this.testResponse.resultDescription;
     } else if (this.testResponse.result === 'PASS') {
       return this.testPassString; ;
     } else {
