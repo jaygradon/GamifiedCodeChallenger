@@ -10,14 +10,18 @@
             <div class="challenge-list-container">
               <div class="list-group">
                 <a *ngFor="let challenge of challenges; let i = index;"
-                   class="list-group-item" (click)="displayChallenge(challenge)">{{challenge.title}} <span class="badge">{{challenge.difficulty}}</span></a>
+                   class="list-group-item" (click)="displayChallenge(challenge)">{{challenge.title}}
+                  <span class="badge">{{challenge.difficulty}}</span>
+                  <span class="badge">{{getGoldReward(challenge)}} <span class="gold-icon"></span></span>
+                </a>
               </div>
             </div>
           </div>
           <div *ngIf="errorOccurred">
             An error has occurred.
           </div>
-          <app-challenge *ngIf="displayCertainChallenge && !errorOccurred" [challenge]="displayedChallenge" (onGoBack)="showChallengesList()"></app-challenge>
+          <app-challenge *ngIf="displayCertainChallenge && !errorOccurred" [challenge]="displayedChallenge"
+                         (onGoBack)="showChallengesList()"></app-challenge>
         </div>
       </div>
     </div>
