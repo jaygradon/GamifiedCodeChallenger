@@ -23,6 +23,7 @@ export class ChallengeComponent {
   accountService: AccountService;
   testResponse;
   testPassString = 'Test successfully passed.';
+  serialiseResponse;
 
   constructor(testingService: TestingService, accountService: AccountService) {
     this.testingService = testingService;
@@ -48,7 +49,12 @@ export class ChallengeComponent {
         const gold = this.getGoldReward();
         if (gold > 0) {
           this.accountService.incrementGold(gold).subscribe(
-            () => this.testPassString =  'Test successfully passed. You have earned ' + this.getGoldReward() + ' gold!'
+            () => {
+              this.testPassString =  'Test successfully passed. You have earned ' + this.getGoldReward() + ' gold!';
+              if (this.challenge.difficulty.toLowerCase() === 'hard') {
+                this.completedHardQuestion();
+              }
+            }
           );
         }
       }
@@ -76,5 +82,19 @@ export class ChallengeComponent {
     } else {
       return '';
     }
+  }
+
+  private completedHardQuestion() {
+    this.accountService.getSerialStorage().subscribe(r => {
+      console.log(r);
+      this.serialiseResponse = r.serializeStorage;
+      const x = this.serialiseResponse.split('q:');
+      console.log(x);
+      if (!x[1].contains('camp')) {
+        x[1] += 'camp,';
+        const res = x.join('sq:');
+        this.accountService.putSerialStorage(res).subscribe(r => console.log(r));
+      }
+    });
   }
 }
