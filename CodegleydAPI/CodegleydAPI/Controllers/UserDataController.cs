@@ -27,7 +27,21 @@ namespace CodegleydAPI.Controllers
             _dataContext = dataContext;
             _logger = logger;
         }
-        
+
+        [HttpGet("list")]
+        public IEnumerable<UserData> GetList(int start, int end)
+        {
+            return _dataContext.UserData.ToList().Skip(start).Take(end - start);
+        }
+
+        [HttpGet("list")]
+        public IEnumerable<UserData> GetList(string dataIds)
+        {
+            string[] ids = dataIds.Split(',');
+            List<UserData> list = _dataContext.UserData.ToList().FindAll(d => ids.Contains(d.ID.ToString()) || ids.Contains(d.UserId));
+            return list;
+        }
+
         /// <summary>
         /// Gets the data for a user, including gold and tiles.
         /// </summary>
