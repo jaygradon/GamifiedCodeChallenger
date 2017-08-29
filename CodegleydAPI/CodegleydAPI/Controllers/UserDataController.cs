@@ -159,17 +159,17 @@ namespace CodegleydAPI.Controllers
             _dataContext.Update(data);
             _dataContext.SaveChanges();
 
-            //if (data.Gold >= 500)
-            //{
-            //    String serial = data.SerializeStorage;
-            //    if(!serial.Split(new string[] { "q:" }, StringSplitOptions.None)[1].Contains("town"))
-            //    {
-            //        String[] serials = serial.Split(new string[] { "q:" }, StringSplitOptions.None);
-            //        serials[1] += "town,";
-            //        serial = String.Join("", serials);
-            //        PutUserSerial(data.UserId, serial);
-            //    }
-            //}
+            if (data.Gold >= 500)
+            {
+                String serial = data.SerializeStorage;
+                if (!serial.Split(new string[] { "q:" }, StringSplitOptions.None)[1].Contains("town"))
+                {
+                    String[] serials = serial.Split(new string[] { "q:" }, StringSplitOptions.None);
+                    serials[1] += "town,";
+                    serial = "q:"+String.Join("", serials)+"q:";
+                    PutUserSerial(data.UserId, serial);
+                }
+            }
 
             this._logger.LogInformation("Updating user data");
             return Ok(data);
