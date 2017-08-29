@@ -30,8 +30,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.gameInstance = UnityLoader.instantiate('gameContainer', 'http://localhost:5000/bin.json', {
-      Module: {TOTAL_MEMORY: 0x20000000}
+      Module: {TOTAL_MEMORY: 0x20000000},
     });
+
+
     this.accountService.getUserData().subscribe(userData => {
       this.userData = userData;
       localStorage.setItem('userData', JSON.stringify(this.userData));
@@ -58,7 +60,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private SendUnityMessage() {
     this.gameInstance.SendMessage('StartObject', 'StoreUserID', this.decodeUserToken() + '|' + this.getAuthToken());
-    console.log('Sent message to Unity');
   }
 
   isPackUnlocked(name: string) {
