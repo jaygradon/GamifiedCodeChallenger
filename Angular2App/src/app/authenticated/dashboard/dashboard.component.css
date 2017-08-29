@@ -7,3 +7,31 @@
 .title-sm {
   font-size: 2em;
 }
+
+.simple-panel {
+  width:900px;
+  position:relative;
+  margin:auto;
+}
+
+.img-container {
+  width: 30%;
+  height: auto;
+  margin-right: 20px;
+  border-radius: 2.5%;
+}
+
+.quest-text {
+  display: inline-block;
+  font-size: large;
+}
+
+.quest-tick {
+  font-size: 50px;
+  color: green;
+  float: right;
+}
+
+.green {
+  color: green;
+}
