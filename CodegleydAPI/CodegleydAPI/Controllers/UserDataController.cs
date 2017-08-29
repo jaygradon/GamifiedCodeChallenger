@@ -34,7 +34,7 @@ namespace CodegleydAPI.Controllers
             return _dataContext.UserData.ToList().Skip(start).Take(end - start);
         }
 
-        [HttpGet("list")]
+        [HttpGet("listid")]
         public IEnumerable<UserData> GetList(string dataIds)
         {
             string[] ids = dataIds.Split(',');
@@ -42,7 +42,7 @@ namespace CodegleydAPI.Controllers
             return list;
         }
 
-        [HttpGet("name/{displayname}")]
+        [HttpGet("name")]
         public IActionResult GetIDForName(string displayname)
         {
             UserData data = _dataContext.UserData.FirstOrDefault(d => d.DisplayName == displayname);
