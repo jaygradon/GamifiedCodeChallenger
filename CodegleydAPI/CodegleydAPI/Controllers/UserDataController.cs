@@ -27,7 +27,21 @@ namespace CodegleydAPI.Controllers
             _dataContext = dataContext;
             _logger = logger;
         }
-        
+
+        [HttpGet("list")]
+        public IEnumerable<UserData> GetList(int start, int end)
+        {
+            return _dataContext.UserData.ToList().Skip(start).Take(end - start);
+        }
+
+        [HttpGet("list")]
+        public IEnumerable<UserData> GetList(string dataIds)
+        {
+            string[] ids = dataIds.Split(',');
+            List<UserData> list = _dataContext.UserData.ToList().FindAll(d => ids.Contains(d.ID.ToString()) || ids.Contains(d.UserId));
+            return list;
+        }
+
         /// <summary>
         /// Gets the data for a user, including gold and tiles.
         /// </summary>
@@ -218,13 +232,96 @@ namespace CodegleydAPI.Controllers
 
             existingData.Gold = data.Gold;
             existingData.GoldSpent = data.GoldSpent;
-            //existingData.SimValues = data.SimValues;
-            existingData.SerializeStorage = data.SerializeStorage;
 
-            _dataContext.UserData.Update(existingData);
-            _dataContext.SaveChanges();
-            _logger.LogInformation("Updating data");
-            return Ok(data);
+            try
+            {
+                _dataContext.UserData.Update(existingData);
+                _dataContext.SaveChanges();
+                _logger.LogInformation("Updating data");
+                return Ok(data);
+            } catch(Exception e)
+            {
+                _logger.LogWarning("Concurrency issue");
+                return Ok();
+            }
+        }
+
+        [HttpPut("serial/{userID}")]
+        public IActionResult PutUserSerial(string userID, string serial)
+        {
+            UserData data = _dataContext.UserData.FirstOrDefault(d => d.UserId == userID);
+            if (data == null)
+            {
+                _logger.LogWarning("Data for user ID {id} not found, post first", userID);
+                return NotFound();
+            }
+
+            data.SerializeStorage = serial;
+
+            try
+            {
+                _dataContext.UserData.Update(data);
+                _dataContext.SaveChanges();
+                _logger.LogInformation("Updating data");
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogWarning("Concurrency issue");
+                return Ok();
+            }
+        }
+
+        [HttpGet("serial/{userID}")]
+        public IActionResult GetUserSerial(string userID)
+        {
+            UserData data = _dataContext.UserData.FirstOrDefault(d => d.UserId == userID);
+            if (data == null)
+            {
+                _logger.LogWarning("Data for user ID {id} not found, post first", userID);
+                return NotFound();
+            }
+
+            return Ok(data.SerializeStorage);
+        }
+
+        [HttpPut("dserial/{userID}")]
+        public IActionResult PutDataSerial(int dataID, string serial)
+        {
+            UserData data = _dataContext.UserData.FirstOrDefault(d => d.ID == dataID);
+            if (data == null)
+            {
+                _logger.LogWarning("Data for ID {id} not found, post first", dataID);
+                return NotFound();
+            }
+
+            data.SerializeStorage = serial;
+
+            try
+            {
+                _dataContext.UserData.Update(data);
+                _dataContext.SaveChanges();
+                _logger.LogInformation("Updating data");
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogWarning("Concurrency issue");
+                return Ok();
+            }
+        }
+
+        [HttpGet("dserial/{userID}")]
+        public IActionResult GetDataSerial(int dataID)
+        {
+            UserData data = _dataContext.UserData.FirstOrDefault(d => d.ID == dataID);
+            if (data == null)
+            {
+                _logger.LogWarning("Data for ID {id} not found, post first", dataID);
+                return NotFound();
+            }
+
+            return Ok(data.SerializeStorage);
         }
 
         [HttpPut("sim")]
