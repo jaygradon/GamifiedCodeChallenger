@@ -61,7 +61,7 @@
             <div class="panel" [ngClass]="{'panel-default': !isPackUnlocked('camp'), 'panel-success': isPackUnlocked('camp')}">
               <div class="panel-body">
                 <img src="../../../assets/campmodels.png" class="img-container">
-                <div class="quest-text" [ngClass]="{'green': isPackUnlocked('camp')}">Completing a hard question to unlock this tile pack!</div>
+                <div class="quest-text" [ngClass]="{'green': isPackUnlocked('camp')}">Complete a "hard" question to unlock this tile pack!</div>
                 <span class="quest-tick glyphicon glyphicon-check" *ngIf="isPackUnlocked('camp')"></span>
               </div>
             </div>
