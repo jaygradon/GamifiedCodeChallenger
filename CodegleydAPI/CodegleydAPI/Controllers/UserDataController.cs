@@ -340,11 +340,17 @@ namespace CodegleydAPI.Controllers
                 return BadRequest();
             }
 
-            _dataContext.Tiles.Remove(simValue1.Tile);
-            _dataContext.SimulationValues.Remove(simValue1);
-            simValue.ID = 0;
-            _dataContext.SimulationValues.Add(simValue);
-            _dataContext.SaveChanges();
+            try
+            {
+                _dataContext.Tiles.Remove(simValue1.Tile);
+                _dataContext.SimulationValues.Remove(simValue1);
+                simValue.ID = 0;
+                _dataContext.SimulationValues.Add(simValue);
+                _dataContext.SaveChanges();
+            } catch (Exception e)
+            {
+                return Ok();
+            }            
             return Ok();
         }
     }
