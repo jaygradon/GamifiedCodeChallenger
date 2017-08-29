@@ -21,7 +21,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {TestingService} from './services/testing.service';
 import {CodemirrorModule} from 'ng2-codemirror';
 import {SettlementComponent} from './authenticated/settlement/settlement.component';
-import { LeaderboardsComponent } from './authenticated/leaderboards/leaderboards.component';
 
 @NgModule({
   declarations: [
@@ -37,8 +36,7 @@ import { LeaderboardsComponent } from './authenticated/leaderboards/leaderboards
     ChallengesComponent,
     ChallengeComponent,
     PageNotFoundComponent,
-    SettlementComponent,
-    LeaderboardsComponent
+    SettlementComponent
   ],
   imports: [
     BrowserModule,

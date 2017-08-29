@@ -34,7 +34,7 @@ namespace CodegleydAPI.Controllers
             return _dataContext.UserData.ToList().Skip(start).Take(end - start);
         }
 
-        [HttpGet("list/ids")]
+        [HttpGet("listid")]
         public IEnumerable<UserData> GetList(string dataIds)
         {
             string[] ids = dataIds.Split(',');

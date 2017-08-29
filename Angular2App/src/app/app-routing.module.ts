@@ -5,8 +5,7 @@ import {LoginComponent} from './login/login.component';
 import {ChallengesComponent} from './authenticated/challenges/challenges.component';
 import {PageNotFoundComponent} from './404notfound/pagenotfound.component';
 import {NgModule} from '@angular/core';
-import {SettlementComponent} from './authenticated/settlement/settlement.component';
-import {LeaderboardsComponent} from './authenticated/leaderboards/leaderboards.component';
+import {SettlementComponent} from "./authenticated/settlement/settlement.component";
 
 const appRoutes: Routes = [
   {
@@ -32,10 +31,6 @@ const appRoutes: Routes = [
   {
     path: 'settlement',
     component: SettlementComponent
-  },
-  {
-    path: 'leaderboards',
-    component: LeaderboardsComponent
   },
   {
     path: 'pagenotfound',
