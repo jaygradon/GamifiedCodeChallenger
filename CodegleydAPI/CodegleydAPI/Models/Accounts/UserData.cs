@@ -22,18 +22,18 @@ namespace CodegleydAPI.Models
 
         public UserData(string userId)
         {
-            this.Gold = 1;
+            this.Gold = 0;
             this.GoldSpent = 0;
-            this.SerializeStorage = "";
+            this.SerializeStorage = "q:q:c:c:f:f:";
             this.SimValues = new List<SimulationValue>();
             this.UserId = userId;
         }
 
         public UserData(string userId, string name)
         {
-            this.Gold = 1;
+            this.Gold = 0;
             this.GoldSpent = 0;
-            this.SerializeStorage = "";
+            this.SerializeStorage = "q:q:c:c:f:f:";
             this.SimValues = new List<SimulationValue>();
             this.UserId = userId;
             this.DisplayName = name;
