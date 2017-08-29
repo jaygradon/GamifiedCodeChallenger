@@ -42,7 +42,7 @@ namespace CodegleydAPI.Controllers
             return list;
         }
 
-        [HttpGet("name/{displayname}")]
+        [HttpGet("name")]
         public IActionResult GetIDForName(string displayname)
         {
             UserData data = _dataContext.UserData.FirstOrDefault(d => d.DisplayName == displayname);
