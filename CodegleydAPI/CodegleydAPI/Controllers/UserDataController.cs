@@ -159,6 +159,18 @@ namespace CodegleydAPI.Controllers
             _dataContext.Update(data);
             _dataContext.SaveChanges();
 
+            //if (data.Gold >= 500)
+            //{
+            //    String serial = data.SerializeStorage;
+            //    if(!serial.Split(new string[] { "q:" }, StringSplitOptions.None)[1].Contains("town"))
+            //    {
+            //        String[] serials = serial.Split(new string[] { "q:" }, StringSplitOptions.None);
+            //        serials[1] += "town,";
+            //        serial = String.Join("", serials);
+            //        PutUserSerial(data.UserId, serial);
+            //    }
+            //}
+
             this._logger.LogInformation("Updating user data");
             return Ok(data);
         }
@@ -268,7 +280,7 @@ namespace CodegleydAPI.Controllers
             catch (Exception e)
             {
                 _logger.LogWarning("Concurrency issue");
-                return Ok();
+                return Ok(data);
             }
         }
 
@@ -282,7 +294,7 @@ namespace CodegleydAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(data.SerializeStorage);
+            return Ok(data);
         }
 
         [HttpPut("dserial/{userID}")]
@@ -307,7 +319,7 @@ namespace CodegleydAPI.Controllers
             catch (Exception e)
             {
                 _logger.LogWarning("Concurrency issue");
-                return Ok();
+                return Ok(data);
             }
         }
 
@@ -321,7 +333,7 @@ namespace CodegleydAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(data.SerializeStorage);
+            return Ok(data);
         }
 
         [HttpPut("sim")]
@@ -340,11 +352,17 @@ namespace CodegleydAPI.Controllers
                 return BadRequest();
             }
 
-            _dataContext.Tiles.Remove(simValue1.Tile);
-            _dataContext.SimulationValues.Remove(simValue1);
-            simValue.ID = 0;
-            _dataContext.SimulationValues.Add(simValue);
-            _dataContext.SaveChanges();
+            try
+            {
+                _dataContext.Tiles.Remove(simValue1.Tile);
+                _dataContext.SimulationValues.Remove(simValue1);
+                simValue.ID = 0;
+                _dataContext.SimulationValues.Add(simValue);
+                _dataContext.SaveChanges();
+            } catch (Exception e)
+            {
+                return Ok();
+            }            
             return Ok();
         }
     }
