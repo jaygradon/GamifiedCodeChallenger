@@ -59,6 +59,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     console.log('Sent message to Unity');
   }
 
+  isPackUnlocked(name: string) {
+    return this.userData.serializeStorage.split('q:')[1].split(',').indexOf(name) !== -1;
+  }
+
 }
 
 
