@@ -61,7 +61,7 @@ export class AccountService {
     const options = new RequestOptions({ headers: headers });
     headers.append('Authorization', 'Bearer ' + this.getAuthToken());
     return this.http
-      .get(route, options)
+      .put(route, {}, options)
       .map(response => response.json() as UserData);
   }
 

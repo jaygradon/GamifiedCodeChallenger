@@ -86,13 +86,11 @@ export class ChallengeComponent {
 
   private completedHardQuestion() {
     this.accountService.getSerialStorage().subscribe(r => {
-      console.log(r);
       this.serialiseResponse = r.serializeStorage;
       const x = this.serialiseResponse.split('q:');
-      console.log(x);
-      if (!x[1].contains('camp')) {
+      if (x[1].indexOf('camp') === -1) {
         x[1] += 'camp,';
-        const res = x.join('sq:');
+        const res = x.join('q:');
         this.accountService.putSerialStorage(res).subscribe(r => console.log(r));
       }
     });
