@@ -16,6 +16,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   gameInstance;
   accountService: AccountService;
   userData: UserData;
+  userDisplayName = '';
+  friendDoesntExist = false;
 
   constructor(accountService: AccountService, private _ngZone: NgZone) {
     this.accountService = accountService;
@@ -61,6 +63,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   isPackUnlocked(name: string) {
     return this.userData.serializeStorage.split('q:')[1].split(',').indexOf(name) !== -1;
+  }
+
+  addFollow() {
+    this.accountService.getUserDataFromName(this.userDisplayName).subscribe(res => {
+      if (this.userData.serializeStorage.split('f:')[1].split(',').indexOf(res.id.toString())) {
+        this.userData.serializeStorage.split('f:')[1] += res.id + ',';
+        this.friendDoesntExist = false;
+      }
+    },
+    err => {
+      this.friendDoesntExist = true;
+    });
   }
 
 }
