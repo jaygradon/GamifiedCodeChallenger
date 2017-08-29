@@ -42,6 +42,18 @@ namespace CodegleydAPI.Controllers
             return list;
         }
 
+        [HttpGet("name/{displayname}")]
+        public IActionResult GetIDForName(string displayname)
+        {
+            UserData data = _dataContext.UserData.FirstOrDefault(d => d.DisplayName == displayname);
+            if(data == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(data);
+        }
+
         /// <summary>
         /// Gets the data for a user, including gold and tiles.
         /// </summary>
