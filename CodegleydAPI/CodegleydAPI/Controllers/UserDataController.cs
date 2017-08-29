@@ -42,6 +42,18 @@ namespace CodegleydAPI.Controllers
             return list;
         }
 
+        [HttpGet("name/{displayname}")]
+        public IActionResult GetIDForName(string displayname)
+        {
+            UserData data = _dataContext.UserData.FirstOrDefault(d => d.DisplayName == displayname);
+            if(data == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(data);
+        }
+
         /// <summary>
         /// Gets the data for a user, including gold and tiles.
         /// </summary>
@@ -159,17 +171,17 @@ namespace CodegleydAPI.Controllers
             _dataContext.Update(data);
             _dataContext.SaveChanges();
 
-            //if (data.Gold >= 500)
-            //{
-            //    String serial = data.SerializeStorage;
-            //    if(!serial.Split(new string[] { "q:" }, StringSplitOptions.None)[1].Contains("town"))
-            //    {
-            //        String[] serials = serial.Split(new string[] { "q:" }, StringSplitOptions.None);
-            //        serials[1] += "town,";
-            //        serial = String.Join("", serials);
-            //        PutUserSerial(data.UserId, serial);
-            //    }
-            //}
+            if (data.Gold >= 500)
+            {
+                String serial = data.SerializeStorage;
+                if (!serial.Split(new string[] { "q:" }, StringSplitOptions.None)[1].Contains("town"))
+                {
+                    String[] serials = serial.Split(new string[] { "q:" }, StringSplitOptions.None);
+                    serials[1] += "town,";
+                    serial = "q:"+String.Join("", serials)+"q:";
+                    PutUserSerial(data.UserId, serial);
+                }
+            }
 
             this._logger.LogInformation("Updating user data");
             return Ok(data);
