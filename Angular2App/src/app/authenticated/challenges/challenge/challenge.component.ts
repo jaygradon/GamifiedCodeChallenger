@@ -4,7 +4,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Challenge} from '../../../models/Challenge';
 import {TestingService} from '../../../services/testing.service';
-import {ChallengeService} from '../../../services/challenge.service';
 import {AccountService} from '../../../services/account.service';
 
 @Component({
@@ -24,6 +23,7 @@ export class ChallengeComponent {
   testResponse;
   testPassString = 'Test successfully passed.';
   serialiseResponse;
+  justCompletedChallenge = false;
 
   constructor(testingService: TestingService, accountService: AccountService) {
     this.testingService = testingService;
@@ -50,10 +50,8 @@ export class ChallengeComponent {
         if (gold > 0) {
           this.accountService.incrementGold(gold).subscribe(
             () => {
-              this.testPassString =  'Test successfully passed. You have earned ' + this.getGoldReward() + ' gold!';
-              if (this.challenge.difficulty.toLowerCase() === 'hard') {
-                this.completedHardQuestion();
-              }
+              this.testPassString = 'Test successfully passed. You have earned ' + this.getGoldReward() + ' gold!';
+              this.completedQuestion();
             }
           );
         }
@@ -67,7 +65,7 @@ export class ChallengeComponent {
       gold = 10;
     } else if (this.challenge.difficulty.toLowerCase() === 'medium') {
       gold = 20;
-    } else if (this.challenge.difficulty.toLowerCase() === 'hard')  {
+    } else if (this.challenge.difficulty.toLowerCase() === 'hard') {
       gold = 30;
     }
     return gold;
@@ -78,19 +76,34 @@ export class ChallengeComponent {
     if (this.testResponse.result === 'FAIL') {
       return 'Test failed. ' + this.testResponse.resultDescription;
     } else if (this.testResponse.result === 'PASS') {
-      return this.testPassString; ;
+      return this.testPassString;
     } else {
       return '';
     }
   }
 
-  private completedHardQuestion() {
+  private completedQuestion() {
+    this.justCompletedChallenge = true;
     this.accountService.getSerialStorage().subscribe(r => {
       this.serialiseResponse = r.serializeStorage;
-      const x = this.serialiseResponse.split('q:');
-      if (x[1].indexOf('camp') === -1) {
-        x[1] += 'camp,';
-        const res = x.join('q:');
+      let res = this.serialiseResponse;
+      let hasChanged = false;
+      if (this.challenge.difficulty.toLowerCase() === 'hard') {
+        const x = this.serialiseResponse.split('q:');
+        if (x[1].indexOf('camp') === -1) {
+          x[1] += 'camp,';
+          res = x.join('q:');
+          hasChanged = true;
+        }
+      }
+      const y = this.serialiseResponse.split('c:');
+      if (y[1].split(',').indexOf(this.challenge.id) === -1) {
+        y[1] += this.challenge.id + ',';
+        res = y.join('c:');
+        hasChanged = true;
+      }
+
+      if (hasChanged) {
         this.accountService.putSerialStorage(res).subscribe(r => console.log(r));
       }
     });

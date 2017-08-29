@@ -10,7 +10,7 @@
             <div class="challenge-list-container">
               <div class="list-group">
                 <a *ngFor="let challenge of challenges; let i = index;"
-                   class="list-group-item" (click)="displayChallenge(challenge)">{{challenge.title}}
+                   class="list-group-item" (click)="displayChallenge(challenge)" [ngClass]="{'list-group-item-success' : isChallengeCompleted(challenge.id)}">{{challenge.title}}
                   <span class="badge">{{challenge.difficulty}}</span>
                   <span class="badge">{{getGoldReward(challenge)}} <span class="gold-icon"></span></span>
                 </a>

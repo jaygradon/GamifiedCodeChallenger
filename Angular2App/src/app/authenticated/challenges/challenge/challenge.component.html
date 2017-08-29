@@ -1,11 +1,12 @@
 <div class="row">
-  <div class="col-sm-10">
+  <div class="col-sm-9">
     <div class="title">
       {{challenge.title}}
     </div>
   </div>
-  <div class="col-sm-2">
+  <div class="col-sm-3">
     <div class="pull-right">
+      <span class="glyphicon glyphicon-check green grow" *ngIf="justCompletedChallenge"></span>
       <span class="gold-text">{{getGoldReward()}}</span><span class="gold-icon" style="height:18px; width:18px;"></span>
     </div>
   </div>

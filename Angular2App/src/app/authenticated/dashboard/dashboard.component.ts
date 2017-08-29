@@ -30,7 +30,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.gameInstance = UnityLoader.instantiate('gameContainer', 'http://localhost:5000/bin.json', {
       Module: {TOTAL_MEMORY: 0x20000000}
     });
-    this.accountService.getUserData().subscribe(userData => this.userData = userData);
+    this.accountService.getUserData().subscribe(userData => {
+      this.userData = userData;
+      localStorage.setItem('userData', JSON.stringify(this.userData));
+    });
+
     window.my = window.my || {};
     window.my.dashboard = window.my.dashboard || {};
     window.my.dashboard.UnityInitDone = this.UnityInitDone.bind(this);
