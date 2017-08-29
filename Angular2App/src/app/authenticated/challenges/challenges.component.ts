@@ -46,11 +46,11 @@ export class ChallengesComponent {
   getGoldReward(challenge: Challenge) {
     let gold = 0;
     if (challenge.difficulty.toLowerCase() === 'easy') {
-      gold = 10;
+      gold = 50;
     } else if (challenge.difficulty.toLowerCase() === 'medium') {
-      gold = 20;
+      gold = 100;
     } else if (challenge.difficulty.toLowerCase() === 'hard')  {
-      gold = 30;
+      gold = 250;
     }
     return gold;
   }

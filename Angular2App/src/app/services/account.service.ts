@@ -89,6 +89,17 @@ export class AccountService {
       .map(response => response.json() as UserData);
   }
 
+  getAllUserData(): Observable<Array<UserData>> {
+    const route = this.route_userData + '/list?start=0&end=1000';
+
+    const headers = new Headers({ 'Accept': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+    headers.append('Authorization', 'Bearer ' + this.getAuthToken());
+    return this.http
+      .get(route, options)
+      .map(response => response.json() as Array<UserData>);
+  }
+
   private decodeUserToken() {
     const userToken = JSON.parse(localStorage.getItem('currentUser')).accountTokens.id_token;
     const payload = userToken.split('.');

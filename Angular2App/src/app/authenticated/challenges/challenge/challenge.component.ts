@@ -62,11 +62,11 @@ export class ChallengeComponent {
   getGoldReward() {
     let gold = 0;
     if (this.challenge.difficulty.toLowerCase() === 'easy') {
-      gold = 10;
+      gold = 50;
     } else if (this.challenge.difficulty.toLowerCase() === 'medium') {
-      gold = 20;
+      gold = 100;
     } else if (this.challenge.difficulty.toLowerCase() === 'hard') {
-      gold = 30;
+      gold = 250;
     }
     return gold;
   }
@@ -97,7 +97,7 @@ export class ChallengeComponent {
         }
       }
       const y = this.serialiseResponse.split('c:');
-      if (y[1].split(',').indexOf(this.challenge.id) === -1) {
+      if (y[1].split(',').indexOf(this.challenge.id.toString()) === -1) {
         y[1] += this.challenge.id + ',';
         res = y.join('c:');
         hasChanged = true;
