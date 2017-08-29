@@ -9,7 +9,6 @@ export class AccountService {
 
   route = `http://localhost:5000/api/account`;
   route_userData = `http://localhost:5000/api/userdata`;
-  route_serial = `http://localhost:5000/api/userdata/serial`;
   headers: Headers;
   options: RequestOptions;
 
@@ -43,29 +42,6 @@ export class AccountService {
       .map(response => response.json() as UserData);
   }
 
-  getSerialStorage(): Observable<UserData> {
-    const route = this.route_serial + '/' + this.decodeUserToken();
-
-    const headers = new Headers({ 'Accept': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
-    headers.append('Authorization', 'Bearer ' + this.getAuthToken());
-    return this.http
-      .get(route, options)
-      .map(response => response.json());
-  }
-
-  putSerialStorage(serial: string): Observable<UserData> {
-    const route = this.route_serial + '/' + this.decodeUserToken() + '?serial=' + serial;
-
-    const headers = new Headers({ 'Accept': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
-    headers.append('Authorization', 'Bearer ' + this.getAuthToken());
-    return this.http
-      .put(route, {}, options)
-      .map(response => response.json() as UserData);
-  }
-
-
   postEmptyUserData(email: string): Observable<UserData> {
     // This method is needed to initialise an empty user data object for the user in the backend
     const route = this.route_userData + '/' + this.decodeUserToken() + '?displayName=' + email;
@@ -87,17 +63,6 @@ export class AccountService {
     return this.http
       .put(route, {}, options)
       .map(response => response.json() as UserData);
-  }
-
-  getAllUserData(): Observable<Array<UserData>> {
-    const route = this.route_userData + '/list?start=0&end=1000';
-
-    const headers = new Headers({ 'Accept': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
-    headers.append('Authorization', 'Bearer ' + this.getAuthToken());
-    return this.http
-      .get(route, options)
-      .map(response => response.json() as Array<UserData>);
   }
 
   private decodeUserToken() {

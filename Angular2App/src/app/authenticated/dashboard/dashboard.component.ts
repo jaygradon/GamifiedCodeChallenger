@@ -30,11 +30,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.gameInstance = UnityLoader.instantiate('gameContainer', 'http://localhost:5000/bin.json', {
       Module: {TOTAL_MEMORY: 0x20000000}
     });
-    this.accountService.getUserData().subscribe(userData => {
-      this.userData = userData;
-      localStorage.setItem('userData', JSON.stringify(this.userData));
-    });
-
+    this.accountService.getUserData().subscribe(userData => this.userData = userData);
     window.my = window.my || {};
     window.my.dashboard = window.my.dashboard || {};
     window.my.dashboard.UnityInitDone = this.UnityInitDone.bind(this);
@@ -57,10 +53,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private SendUnityMessage() {
     this.gameInstance.SendMessage('StartObject', 'StoreUserID', this.decodeUserToken() + '|' + this.getAuthToken());
     console.log('Sent message to Unity');
-  }
-
-  isPackUnlocked(name: string) {
-    return this.userData.serializeStorage.split('q:')[1].split(',').indexOf(name) !== -1;
   }
 
 }
