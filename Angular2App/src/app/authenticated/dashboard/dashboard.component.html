@@ -101,9 +101,29 @@
                   <span class="error" *ngIf="friendDoesntExist">User doesn't exist.</span>
                 </div>
               </div>
-              <div class="row">
+              <div *ngIf="follows" class="row">
                 <div class="col-sm-12">
-
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <div *ngFor="let follow of follows">
+                        <div class="row margin-bottom">
+                          <div class="col-sm-6">
+                            {{follow.displayName}}
+                          </div>
+                          <div class="col-sm-3">
+                            {{follow.gold}}
+                          </div>
+                          <div class="col-sm-3">
+                              <span class="input-group-btn">
+                                <button class="btn-sm btn-primary small-button" (click)="loadVillage(follow.id)">
+                                  <span class="glyphicon glyphicon-home"></span>
+                                </button>
+                              </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
