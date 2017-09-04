@@ -16,6 +16,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   gameInstance;
   accountService: AccountService;
   userData: UserData;
+  userDisplayName = '';
+  friendDoesntExist = false;
 
   constructor(accountService: AccountService, private _ngZone: NgZone) {
     this.accountService = accountService;
@@ -28,8 +30,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.gameInstance = UnityLoader.instantiate('gameContainer', 'http://localhost:5000/bin.json', {
-      Module: {TOTAL_MEMORY: 0x20000000}
+      Module: {TOTAL_MEMORY: 0x20000000},
     });
+
+
     this.accountService.getUserData().subscribe(userData => {
       this.userData = userData;
       localStorage.setItem('userData', JSON.stringify(this.userData));
@@ -56,11 +60,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private SendUnityMessage() {
     this.gameInstance.SendMessage('StartObject', 'StoreUserID', this.decodeUserToken() + '|' + this.getAuthToken());
-    console.log('Sent message to Unity');
   }
 
   isPackUnlocked(name: string) {
     return this.userData.serializeStorage.split('q:')[1].split(',').indexOf(name) !== -1;
+  }
+
+  addFollow() {
+    this.accountService.getUserDataFromName(this.userDisplayName).subscribe(res => {
+      if (this.userData.serializeStorage.split('f:')[1].split(',').indexOf(res.id.toString())) {
+        this.userData.serializeStorage.split('f:')[1] += res.id + ',';
+        this.friendDoesntExist = false;
+      }
+    },
+    err => {
+      this.friendDoesntExist = true;
+    });
   }
 
 }

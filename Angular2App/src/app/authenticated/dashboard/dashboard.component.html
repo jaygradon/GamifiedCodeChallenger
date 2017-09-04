@@ -1,7 +1,6 @@
 <app-navbar></app-navbar>
 <div class="container-fluid">
   <div class="row">
-
     <div class="simple-panel">
       <div class="panel panel-default">
         <div class="panel-body">
@@ -23,7 +22,9 @@
           </div>
           <div class="row">
             <div class="col-sm-12">
-              Here you can practise Python coding questions to learn the basics or prepare for an interview. As you complete challenges, you'll earn gold that will upgrade your settlement. Watch your settlement grow with you as you become a better programmer!
+              Here you can practise Python coding questions to learn the basics or prepare for an interview. As you
+              complete challenges, you'll earn gold that will upgrade your settlement. Watch your settlement grow with
+              you as you become a better programmer!
             </div>
           </div>
         </div>
@@ -38,37 +39,78 @@
   </div>
 
   <div class="row simple-panel" *ngIf="this.userData">
-    <div class="panel panel-default">
-      <div class=" panel-body">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="title">
-              Quests
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="panel panel-default">
-              <div class="panel-body">
-               <img src="../../../assets/townmodels.png" class="img-container">
-                <div class="quest-text">Earn 500 gold to unlock this tile pack!</div>
-                <span class="quest-tick glyphicon glyphicon-check" *ngIf="isPackUnlocked('town')"></span>
+    <div class="col-sm-8">
+      <div class="panel panel-default">
+        <div class=" panel-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="title">
+                Quests
+              </div>
+              <br/>
+              <div style="margin-bottom: 10px">Complete the following quests to unlock tile packs for your settlement.
               </div>
             </div>
           </div>
-          <div class="col-sm-12">
-            <div class="panel" [ngClass]="{'panel-default': !isPackUnlocked('camp'), 'panel-success': isPackUnlocked('camp')}">
-              <div class="panel-body">
-                <img src="../../../assets/campmodels.png" class="img-container">
-                <div class="quest-text" [ngClass]="{'green': isPackUnlocked('camp')}">Completing a hard question to unlock this tile pack!</div>
-                <span class="quest-tick glyphicon glyphicon-check" *ngIf="isPackUnlocked('camp')"></span>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="panel"
+                   [ngClass]="{'panel-default': !isPackUnlocked('town'), 'panel-success': isPackUnlocked('town')}">
+                <div class="panel-body">
+                  <img src="../../../assets/townmodels.png" class="img-container">
+                  <div class="quest-text" [ngClass]="{'green': isPackUnlocked('town')}">Earn 500 gold to unlock!</div>
+                  <span class="quest-tick glyphicon glyphicon-check" *ngIf="isPackUnlocked('town')"></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="panel"
+                   [ngClass]="{'panel-default': !isPackUnlocked('camp'), 'panel-success': isPackUnlocked('camp')}">
+                <div class="panel-body">
+                  <img src="../../../assets/campmodels.png" class="img-container">
+                  <div class="quest-text" [ngClass]="{'green': isPackUnlocked('camp')}">Complete a "hard" question!
+                  </div>
+                  <span class="quest-tick glyphicon glyphicon-check" *ngIf="isPackUnlocked('camp')"></span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="title">Following</div>
+              <br/>
+              <div class="row">
+                <div class="col-sm-12">
+                  Follow Someone
+                  <div class="input-group">
+                    <input required #email="ngModel" type="text" class="form-control" id="userDisplayName"
+                           name="userDisplayName"
+                           placeholder="Enter User's Name" [(ngModel)]="userDisplayName">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary" (click)="addFollow()">
+                        <span class="glyphicon glyphicon-plus"></span>
+                      </button>
+                    </span>
+                  </div>
+                  <span class="error" *ngIf="friendDoesntExist">User doesn't exist.</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 </div>
 
