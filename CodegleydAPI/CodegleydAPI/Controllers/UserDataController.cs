@@ -178,7 +178,7 @@ namespace CodegleydAPI.Controllers
                 {
                     String[] serials = serial.Split(new string[] { "q:" }, StringSplitOptions.None);
                     serials[1] += "town,";
-                    serial = "q:"+String.Join("", serials)+"q:";
+                    serial = String.Join("q:", serials);
                     PutUserSerial(data.UserId, serial);
                 }
             }
