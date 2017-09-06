@@ -16,6 +16,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   gameInstance;
   accountService: AccountService;
   userData: UserData;
+  userDisplayName = '';
+  friendDoesntExist = false;
+  follows: Array<UserData>;
 
   constructor(accountService: AccountService, private _ngZone: NgZone) {
     this.accountService = accountService;
@@ -28,11 +31,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.gameInstance = UnityLoader.instantiate('gameContainer', 'http://localhost:5000/bin.json', {
-      Module: {TOTAL_MEMORY: 0x20000000}
+      Module: {TOTAL_MEMORY: 0x20000000},
     });
+
+
     this.accountService.getUserData().subscribe(userData => {
       this.userData = userData;
       localStorage.setItem('userData', JSON.stringify(this.userData));
+      this.getFollows();
     });
 
     window.my = window.my || {};
@@ -56,11 +62,55 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private SendUnityMessage() {
     this.gameInstance.SendMessage('StartObject', 'StoreUserID', this.decodeUserToken() + '|' + this.getAuthToken());
-    console.log('Sent message to Unity');
   }
 
   isPackUnlocked(name: string) {
     return this.userData.serializeStorage.split('q:')[1].split(',').indexOf(name) !== -1;
+  }
+
+  addFollow() {
+    this.accountService.getUserDataFromName(this.userDisplayName).subscribe(res => {
+      console.log('res:  ' + JSON.stringify(res));
+      if (this.userData.serializeStorage.split('f:')[1].split(',').indexOf(res.id.toString()) === -1) {
+        this.follows.push(res);
+        let split = this.userData.serializeStorage.split('f:');
+        split[1] += `${res.id.toString()},`;
+        this.userData.serializeStorage = split.join('f:');
+        this.accountService.putSerialStorage(this.userData.serializeStorage).subscribe(res => {
+          console.log('res:  ' + JSON.stringify(res));
+        },
+        err => {
+          console.log('err:  ' + JSON.stringify(err));
+        });
+
+      }
+      this.friendDoesntExist = false;
+    },
+    err => {
+      this.friendDoesntExist = true;
+    });
+  }
+
+  getFollows() {
+    console.log('getting follows');
+    let followIds = this.userData.serializeStorage.split('f:')[1];
+    if (followIds) {
+      console.log('follows');
+      this.accountService.getUserDataFromIDs(followIds).subscribe(res => {
+        console.log('res:  ' + JSON.stringify(res));
+        this.follows = res; // ?
+      },
+      err => {
+        console.log('err:  ' + JSON.stringify(err));
+      });
+    } else {
+      console.log('follows empty');
+      this.follows = [];
+    }
+  }
+
+  loadVillage(id) {
+    this.gameInstance.SendMessage('StartObject', 'LoadVillage', id);
   }
 
 }

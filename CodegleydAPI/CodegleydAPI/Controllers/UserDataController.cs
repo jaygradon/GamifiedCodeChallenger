@@ -309,7 +309,7 @@ namespace CodegleydAPI.Controllers
             return Ok(data);
         }
 
-        [HttpPut("dserial/{userID}")]
+        [HttpPut("dserial/{dataID}")]
         public IActionResult PutDataSerial(int dataID, string serial)
         {
             UserData data = _dataContext.UserData.FirstOrDefault(d => d.ID == dataID);
@@ -335,7 +335,7 @@ namespace CodegleydAPI.Controllers
             }
         }
 
-        [HttpGet("dserial/{userID}")]
+        [HttpGet("dserial/{dataID}")]
         public IActionResult GetDataSerial(int dataID)
         {
             UserData data = _dataContext.UserData.FirstOrDefault(d => d.ID == dataID);

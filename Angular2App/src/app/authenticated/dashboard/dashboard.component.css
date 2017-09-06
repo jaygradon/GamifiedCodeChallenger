@@ -35,3 +35,17 @@
 .green {
   color: green;
 }
+
+.error {
+  color: red;
+}
+
+.small-button {
+  vertical-align: middle;
+}
+
+.margin-bottom {
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+}

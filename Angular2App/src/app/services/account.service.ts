@@ -100,6 +100,27 @@ export class AccountService {
       .map(response => response.json() as Array<UserData>);
   }
 
+  getUserDataFromName(name: string) {
+    const route = this.route_userData + '/name?displayname=' + name;
+
+    const headers = new Headers({ 'Accept': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+    headers.append('Authorization', 'Bearer ' + this.getAuthToken());
+    return this.http
+      .get(route, options)
+      .map(response => response.json());
+  }
+
+  getUserDataFromIDs(ids: string) {
+    const route = this.route_userData + '/list/ids?dataIds=' + ids;
+    const headers = new Headers({ 'Accept': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+    headers.append('Authorization', 'Bearer ' + this.getAuthToken());
+    return this.http
+      .get(route, options)
+      .map(response => response.json());
+  }
+
   private decodeUserToken() {
     const userToken = JSON.parse(localStorage.getItem('currentUser')).accountTokens.id_token;
     const payload = userToken.split('.');

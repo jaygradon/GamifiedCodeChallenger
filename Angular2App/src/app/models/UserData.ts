@@ -6,6 +6,7 @@
 export class UserData {
   id: number;
   userId: string;
+  displayName: string;
   gold: number;
   goldSpent: number;
   serializeStorage: string;
