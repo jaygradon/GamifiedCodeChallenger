@@ -101,7 +101,7 @@
                   <span class="error" *ngIf="friendDoesntExist">User doesn't exist.</span>
                 </div>
               </div>
-              <div *ngIf="follows" class="row">
+              <div *ngIf="follows && follows.length > 0" class="row">
                 <div class="col-sm-12">
                   <div class="panel panel-default">
                     <div class="panel-body">
