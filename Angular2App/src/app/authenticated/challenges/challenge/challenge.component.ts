@@ -17,6 +17,7 @@ export class ChallengeComponent {
 
   @Input() challenge: Challenge;
   @Output() onGoBack = new EventEmitter<boolean>();
+  @Output() updateCompletion = new EventEmitter<string>()
   goBack = false;
   testingService: TestingService;
   accountService: AccountService;
@@ -89,14 +90,14 @@ export class ChallengeComponent {
       let res = this.serialiseResponse;
       let hasChanged = false;
       if (this.challenge.difficulty.toLowerCase() === 'hard') {
-        const x = this.serialiseResponse.split('q:');
-        if (x[1].indexOf('camp') === -1) {
+        const x = res.split('q:');
+        if (x[1].split(',').indexOf('camp') === -1) {
           x[1] += 'camp,';
           res = x.join('q:');
           hasChanged = true;
         }
       }
-      const y = this.serialiseResponse.split('c:');
+      const y = res.split('c:');
       if (y[1].split(',').indexOf(this.challenge.id.toString()) === -1) {
         y[1] += this.challenge.id + ',';
         res = y.join('c:');
@@ -105,6 +106,7 @@ export class ChallengeComponent {
 
       if (hasChanged) {
         this.accountService.putSerialStorage(res).subscribe(r => console.log(r));
+        this.updateCompletion.emit(res);
       }
     });
   }

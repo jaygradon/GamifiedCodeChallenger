@@ -7,7 +7,7 @@
           <!--Should probably refactor the list into a separate component if it gets moer complex-->
           <div *ngIf="!displayCertainChallenge && !errorOccurred">
             <div class="title">Challenges</div>
-            <div class="challenge-list-container">
+            <div class="challenge-list-container" *ngIf="completedChallenges">
               <div class="list-group">
                 <a *ngFor="let challenge of challenges; let i = index;"
                    class="list-group-item" (click)="displayChallenge(challenge)" [ngClass]="{'list-group-item-success' : isChallengeCompleted(challenge.id)}">{{challenge.title}}
@@ -21,7 +21,7 @@
             An error has occurred.
           </div>
           <app-challenge *ngIf="displayCertainChallenge && !errorOccurred" [challenge]="displayedChallenge"
-                         (onGoBack)="showChallengesList()"></app-challenge>
+                         (onGoBack)="showChallengesList()" (updateCompletion)="challengeCompleted($event)"></app-challenge>
         </div>
       </div>
     </div>

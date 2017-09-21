@@ -2,6 +2,7 @@ import {UserData} from '../../models/UserData';
 import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import '../../../unity/Build/UnityLoader.js';
 import {AccountService} from '../../services/account.service';
+import {Router} from '@angular/router';
 
 declare var UnityLoader: any;
 
@@ -20,7 +21,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   friendDoesntExist = false;
   follows: Array<UserData>;
 
-  constructor(accountService: AccountService, private _ngZone: NgZone) {
+  constructor(accountService: AccountService, private _ngZone: NgZone, private router: Router ) {
     this.accountService = accountService;
   }
 
@@ -44,6 +45,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     window.my = window.my || {};
     window.my.dashboard = window.my.dashboard || {};
     window.my.dashboard.UnityInitDone = this.UnityInitDone.bind(this);
+    window.my.dashboard.UnityUserIsLoaded = this.UnityUserIsLoaded.bind(this);
   }
 
   private decodeUserToken() {
@@ -57,8 +59,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   public UnityInitDone() {
-    this._ngZone.run(() => this.SendUnityMessage());
-  };
+    this._ngZone.run(() => {
+      this.SendUnityMessage();
+    });
+  }
+
+  public UnityUserIsLoaded() {
+    this._ngZone.run(() => {
+      this.gameInstance.SendMessage('StartObject', 'ExternalUpdate');
+    });
+  }
 
   private SendUnityMessage() {
     this.gameInstance.SendMessage('StartObject', 'StoreUserID', this.decodeUserToken() + '|' + this.getAuthToken());
@@ -73,7 +83,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       console.log('res:  ' + JSON.stringify(res));
       if (this.userData.serializeStorage.split('f:')[1].split(',').indexOf(res.id.toString()) === -1) {
         this.follows.push(res);
-        let split = this.userData.serializeStorage.split('f:');
+        const split = this.userData.serializeStorage.split('f:');
         split[1] += `${res.id.toString()},`;
         this.userData.serializeStorage = split.join('f:');
         this.accountService.putSerialStorage(this.userData.serializeStorage).subscribe(res => {
@@ -93,7 +103,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   getFollows() {
     console.log('getting follows');
-    let followIds = this.userData.serializeStorage.split('f:')[1];
+    const followIds = this.userData.serializeStorage.split('f:')[1];
     if (followIds) {
       console.log('follows');
       this.accountService.getUserDataFromIDs(followIds).subscribe(res => {
@@ -111,6 +121,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   loadVillage(id) {
     this.gameInstance.SendMessage('StartObject', 'LoadVillage', id);
+  }
+
+  goToChallenges() {
+    this.router.navigate(['/challenges']);
   }
 
 }

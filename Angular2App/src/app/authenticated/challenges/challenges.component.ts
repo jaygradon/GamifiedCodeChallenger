@@ -26,8 +26,11 @@ export class ChallengesComponent {
     this.challengeService = challengeService;
     this.accountService = accountService;
     this.getChallenges();
-    this.userData = JSON.parse(localStorage.getItem('userData'));
-    this.getCompletedChallenges();
+    this.accountService.getUserData().subscribe(userData => {
+      this.userData = userData;
+      localStorage.setItem('userData', JSON.stringify(this.userData));
+      this.getCompletedChallenges();
+    });
   }
 
   private getChallenges() {
@@ -63,6 +66,12 @@ export class ChallengesComponent {
   }
 
   private getCompletedChallenges() {
+    this.completedChallenges = this.userData.serializeStorage.split('c:')[1].split(',');
+  }
+
+  challengeCompleted(serialiseStorage) {
+    console.log(serialiseStorage);
+    this.userData.serializeStorage = serialiseStorage;
     this.completedChallenges = this.userData.serializeStorage.split('c:')[1].split(',');
   }
 }
