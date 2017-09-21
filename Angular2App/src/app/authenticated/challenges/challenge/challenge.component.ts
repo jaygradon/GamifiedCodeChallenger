@@ -17,6 +17,7 @@ export class ChallengeComponent {
 
   @Input() challenge: Challenge;
   @Output() onGoBack = new EventEmitter<boolean>();
+  @Output() updateCompletion = new EventEmitter<string>()
   goBack = false;
   testingService: TestingService;
   accountService: AccountService;
@@ -105,6 +106,7 @@ export class ChallengeComponent {
 
       if (hasChanged) {
         this.accountService.putSerialStorage(res).subscribe(r => console.log(r));
+        this.updateCompletion.emit(res);
       }
     });
   }

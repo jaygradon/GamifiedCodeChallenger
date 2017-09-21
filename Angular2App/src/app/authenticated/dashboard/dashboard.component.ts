@@ -2,6 +2,7 @@ import {UserData} from '../../models/UserData';
 import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import '../../../unity/Build/UnityLoader.js';
 import {AccountService} from '../../services/account.service';
+import {Router} from '@angular/router';
 
 declare var UnityLoader: any;
 
@@ -20,7 +21,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   friendDoesntExist = false;
   follows: Array<UserData>;
 
-  constructor(accountService: AccountService, private _ngZone: NgZone) {
+  constructor(accountService: AccountService, private _ngZone: NgZone, private router: Router ) {
     this.accountService = accountService;
   }
 
@@ -120,6 +121,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   loadVillage(id) {
     this.gameInstance.SendMessage('StartObject', 'LoadVillage', id);
+  }
+
+  goToChallenges() {
+    this.router.navigate(['/challenges']);
   }
 
 }
