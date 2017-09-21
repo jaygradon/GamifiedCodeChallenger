@@ -9,12 +9,12 @@
               Welcome to Codegleyd.
             </div>
             <div class="col-sm-4">
-              <div class="block pull-right" *ngIf="userData">Gold: {{userData.gold}}
+              <div class="block pull-right" *ngIf="userData">Lifetime Gold: {{userData.gold}}
                 <div class="gold-icon"></div>
               </div>
               <br/>
               <div class="pull-right block" *ngIf="userData">
-                Gold Spent: {{userData.goldSpent}}
+                Gold Available: {{userData.gold - userData.goldSpent}}
                 <div class="gold-icon"></div>
               </div>
             </div>
@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <div class="row simple-panel" *ngIf="this.userData">
+  <div class="row simple-panel" *ngIf="this.userData" style="width:940px">
     <div class="col-sm-8">
       <div class="panel panel-default">
         <div class=" panel-body">
@@ -87,11 +87,11 @@
               <br/>
               <div class="row">
                 <div class="col-sm-12">
-                  Follow Someone
+                  Follow another user to be able to see their settlement and progress!
                   <div class="input-group">
                     <input required #email="ngModel" type="text" class="form-control" id="userDisplayName"
                            name="userDisplayName"
-                           placeholder="Enter User's Name" [(ngModel)]="userDisplayName">
+                           placeholder="Enter User's Email" [(ngModel)]="userDisplayName">
                     <span class="input-group-btn">
                       <button class="btn btn-primary" (click)="addFollow()">
                         <span class="glyphicon glyphicon-plus"></span>
@@ -107,11 +107,11 @@
                     <div class="panel-body">
                       <div *ngFor="let follow of follows">
                         <div class="row margin-bottom">
-                          <div class="col-sm-6">
+                          <div class="col-sm-7">
                             {{follow.displayName}}
                           </div>
-                          <div class="col-sm-3">
-                            {{follow.gold}}
+                          <div class="col-sm-2 pull-right" style="padding: 0; font-size: 9.5pt">
+                            {{follow.gold}} <span class="gold-icon"></span>
                           </div>
                           <div class="col-sm-3">
                               <span class="input-group-btn">
